@@ -1,21 +1,48 @@
-
 div {
 	text-align: center;
 	align-content: center;
 	align-items: center;
 }
 
+ion-title {
+	background-color:#FE9300;
+	color:#FE9300;
+}
+
 ion-img {
 	width: 200px;
 	height: 200px;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
 }
 
 ion-footer {
-	background-color: black;
+	background-color: #4D1D90;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 	height: 40px;
 	color: white;
 	text-align: center;
+}
+
+ion-input{
+	margin: 10px 10px 10px 10px;
+}
+
+
+#tituloLogin {
+	font-size: 60px;
+	color: red;
+	margin-bottom: 30px;
+}
+
+.text-amarillo-upemor{
+	color: #FE9300;
+}
+
+.text-rojo-upemor{
+	color: red;
 }

@@ -1,5 +1,7 @@
 {
   "name": "upperlab-movil",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
