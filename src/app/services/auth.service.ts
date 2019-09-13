@@ -12,13 +12,15 @@ export class AuthService {
 	
 	// Se agrega la modelo de usuario
 	public usuario: firebase.User;
+	public rol: number;
 	
 	// Inyectamos el servicio
 	constructor( public afAuth: AngularFireAuth, private router: Router ){ }
 	
 	// Función para Iniciar Sesión
 	iniciarSesion( correo: string, contrasena: string ){
-				
+		console.log(correo);
+		
 		return this.afAuth.auth.signInWithEmailAndPassword( correo, contrasena );
 	}
 	

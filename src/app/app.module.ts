@@ -14,6 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { LoginPageModule } from './pages/login/login.module';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { LoginPageModule } from './pages/login/login.module';
 	providers: [
 		StatusBar,
 		SplashScreen,
+		BarcodeScanner,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
 	],
 	bootstrap: [AppComponent]

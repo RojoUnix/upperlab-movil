@@ -30,32 +30,30 @@ export class LoginPage implements OnInit {
 	}
 
 	// Formulario
-	enviarFormulario() {
-		let usuarioActivo: string;		
+	enviarFormulario() {	
 
 		this.authServicio.iniciarSesion(this.formulario.get('correo').value,
 		this.formulario.get('contrasena').value).then( (userCredential: auth.UserCredential) => {
 	
 			// Se obtiene el usuario y sus atributos
-			// this.authServicio.usuario = userCredential.user;
+			this.authServicio.usuario = userCredential.user;
+		
 						
 			userCredential.user.getIdTokenResult().then( idTokenResult =>{				
-				const rol = this.authServicio.valorNumericoRol( idTokenResult.claims )
+				const rol = this.authServicio.valorNumericoRol( idTokenResult.claims );
+				this.authServicio.rol = rol;
 
 				// Guardar token
 				this.storage.set('token', idTokenResult.token);
 
 				if( rol === ROLES.SUPERADMINISTRADOR ){
-					usuarioActivo = 'Super Administrador';
 					this.router.navigate(['super-admin']);
 				} else if ( rol === ROLES.ADMINISTRADOR ){
-					usuarioActivo = 'Administrador';
 					this.router.navigate(['administrador']);
 				} else if (rol === ROLES.PROFESOR){
-					usuarioActivo = 'Profesor';
 					this.router.navigate(['profesor']);
 				} else {
-					usuarioActivo = 'Alumno'
+					// Ejemplo de envió http
 					this.router.navigate(['alumno']);
 				}
 				
@@ -63,6 +61,8 @@ export class LoginPage implements OnInit {
 			});
 			
 		}).catch( (error) => {
+			console.log('Login');
+			
 			console.log(error);
 			
 			// Alerta Incorrecto

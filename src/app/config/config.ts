@@ -3,4 +3,6 @@ export const ROLES = {
 	PROFESOR: 2,
 	ADMINISTRADOR: 3,
 	SUPERADMINISTRADOR: 4
-}
+};
+
+export const URL_SERVICIOS = 'http://192.168.0.6:3000';
