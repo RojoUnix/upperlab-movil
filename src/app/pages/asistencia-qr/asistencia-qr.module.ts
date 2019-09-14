@@ -9,22 +9,22 @@ import { AsistenciaQrPage } from './asistencia-qr.page';
 import { ToolbarComponent } from '../../components/toolbar/toolbar.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: AsistenciaQrPage
-  }
+	{
+		path: '',
+		component: AsistenciaQrPage
+	}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [
-    AsistenciaQrPage,
-    ToolbarComponent
-  ]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		RouterModule.forChild(routes)
+	],
+	declarations: [
+		AsistenciaQrPage,
+		ToolbarComponent
+	]
 })
 export class AsistenciaQrPageModule {}

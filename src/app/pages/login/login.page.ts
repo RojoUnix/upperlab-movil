@@ -23,6 +23,7 @@ export class LoginPage implements OnInit {
 		this.formulario = new FormGroup({
 			correo: new FormControl('', [
 			Validators.required,
+			// tslint:disable-next-line: quotemark
 			Validators.pattern("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
 			]),
 			contrasena: new FormControl('', Validators.required)
@@ -39,7 +40,7 @@ export class LoginPage implements OnInit {
 			this.authServicio.usuario = userCredential.user;
 		
 						
-			userCredential.user.getIdTokenResult().then( idTokenResult =>{				
+			userCredential.user.getIdTokenResult(true).then( idTokenResult =>{				
 				const rol = this.authServicio.valorNumericoRol( idTokenResult.claims );
 				this.authServicio.rol = rol;
 
@@ -54,7 +55,7 @@ export class LoginPage implements OnInit {
 					this.router.navigate(['profesor']);
 				} else {
 					// Ejemplo de envió http
-					this.router.navigate(['alumno']);
+					this.router.navigate(['asistencia-qr']);
 				}
 				
 				
@@ -68,25 +69,25 @@ export class LoginPage implements OnInit {
 			// Alerta Incorrecto
 			this.mostrarAlerta();
 			
-		})
+		});
 		
 	}
 
 
 	// Alertas
-	async mostrarAlerta(){
+	async mostrarAlerta() {
 		const alert = await this.alertController.create({
-				header: 'Error ',
-				subHeader: 'Usuario y/o contraña incorrectos',
-				// message: 'Esta es una alerta',
-				buttons:[{
-					text: 'Aceptar',
-					cssClass: 'primary',
-					handler: (blah) => {
-						console.log('Alerta error');
-					}
-				}]
-			});
-			await alert.present();
-		}
+			header: 'Error ',
+			subHeader: 'Usuario y/o contraña incorrectos',
+			// message: 'Esta es una alerta',
+			buttons: [{
+				text: 'Aceptar',
+				cssClass: 'primary',
+				handler: (blah) => {
+					console.log('Alerta error');
+				}
+			}]
+		});
+		await alert.present();
+	}
 }

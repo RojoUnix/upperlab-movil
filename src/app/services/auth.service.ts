@@ -15,22 +15,22 @@ export class AuthService {
 	public rol: number;
 	
 	// Inyectamos el servicio
-	constructor( public afAuth: AngularFireAuth, private router: Router ){ }
+	constructor( public afAuth: AngularFireAuth, private router: Router ) { }
 	
 	// Función para Iniciar Sesión
-	iniciarSesion( correo: string, contrasena: string ){
+	iniciarSesion( correo: string, contrasena: string ) {
 		console.log(correo);
 		
 		return this.afAuth.auth.signInWithEmailAndPassword( correo, contrasena );
 	}
 	
-	//EL usuario de autentico
-	estaAutenticado(){
+	// EL usuario de autentico
+	estaAutenticado() {
 		return true;
 	} 
 	
 	// Manejo del Token
-	almacenarToken(){
+	almacenarToken() {
 		this.afAuth.auth.currentUser.getIdToken(true).then( idToken => {
 			localStorage.setItem('token', idToken);
 		});
@@ -40,29 +40,28 @@ export class AuthService {
 		localStorage.removeItem('token');
 	}
 		
-		// Valor numerico del Rol
-		valorNumericoRol( claims: any ){
-			if ( !!claims.isAlumno ) {
-				return ROLES.ALUMNO;
-			} else if ( claims.isProfesor ){
-				return ROLES.PROFESOR;
-			} else if ( claims.isAdmin ){
-				return ROLES.ADMINISTRADOR;
-			} else {
-				return ROLES.SUPERADMINISTRADOR;
-			}
+	// Valor numerico del Rol
+	valorNumericoRol( claims: any ) {
+		if ( !!claims.isAlumno ) {
+			return ROLES.ALUMNO;
+		} else if ( claims.isProfesor ){
+			return ROLES.PROFESOR;
+		} else if ( claims.isAdmin ){
+			return ROLES.ADMINISTRADOR;
+		} else {
+			return ROLES.SUPERADMINISTRADOR;
 		}
-		
-		// Función para cerrar sesión
-		cerrarSesion(){
-			this.afAuth.auth.signOut().then ( (val) =>{
-				// this.borrarToken();
-				this.router.navigate(['login']);
-			}).catch( err => {
-				console.log('Cerrar Sesión Catch()');
-				console.log( err );
-			})
-		}
-		
 	}
 	
+	// Función para cerrar sesión
+	cerrarSesion() {
+		this.afAuth.auth.signOut().then ( (val) =>{
+			// this.borrarToken();
+			this.router.navigate(['login']);
+		}).catch( err => {
+			console.log('Cerrar Sesión Catch()');
+			console.log( err );
+		});
+	}
+			
+}

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP } from '@ionic-native/http/ngx';
 
 import { AngularFireModule } from '@angular/fire';
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 		LoginPageModule
 	],
 	providers: [
+		HTTP,
 		StatusBar,
 		SplashScreen,
 		BarcodeScanner,

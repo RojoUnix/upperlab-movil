@@ -5,4 +5,4 @@ export const ROLES = {
 	SUPERADMINISTRADOR: 4
 };
 
-export const URL_SERVICIOS = 'http://192.168.0.6:3000';
+export const URL_SERVICIOS = 'http://192.168.1.78:3000';

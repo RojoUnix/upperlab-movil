@@ -14,18 +14,18 @@ export class AsistenciaQrPage implements OnInit {
 	
 	ngOnInit() {
 		
-
+		
 	}
 	
 	// Entrará y lanzara la funcion de Scan
-	ionViewWillEnter(){
-
+	ionViewWillEnter() {
+		
 		this.scan();
 	}
 	
 	
-	//Regresa una promesa, abrira la camara, en barcoData vendra la información, el catch puede tener un error de cordoba. BarcodeData, cancelado, formato en el quee viene y el texto que viene en el codigo interno.
-	async scan(){
+	// Regresa una promesa, abrira la camara, en barcoData vendra la información, el catch puede tener un error de cordoba. BarcodeData, cancelado, formato en el quee viene y el texto que viene en el codigo interno.
+	async scan() {
 		let matricula = this.authService.usuario.email;
 		matricula = matricula.split('@')[0];
 		
@@ -35,16 +35,13 @@ export class AsistenciaQrPage implements OnInit {
 		console.log('Barcode data', barcodeData);
 		console.log('Matricula: ', matricula);
 		
-		this.asistenciaService.registrarAsistenciap();
-
 		console.log('Segunda función');
 		
-		// this.asistenciaService.registrarAsistencia( matricula, 'Texto literal' ).then(respuesta=>{
-		// 	console.log(respuesta);
-		// }).catch( err => { 
-		// 	console.log('Error de Asistencia');
-		// 	console.log(err);
-		// });
+		this.asistenciaService.registrarAsistencia( matricula, 'Texto literal' ).then(respuesta => {
+			console.log(respuesta);
+		}).catch( err => { 
+			console.log('Error de Asistencia');
+			console.log(err);
+		});
 	}
-	
 }
