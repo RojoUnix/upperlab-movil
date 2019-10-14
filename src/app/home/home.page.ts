@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  public loginForm: FormGroup;
 
-  constructor() {}
+  constructor(public router: Router, public formControl: FormControl, public formArray: FormArray, public validators: Validators){
+
+  } 
 
 }

@@ -9,7 +9,17 @@ const routes: Routes = [
 	{ path: 'profesor', loadChildren: './pages/profesor/profesor.module#ProfesorPageModule' },
 	{ path: 'administrador', loadChildren: './pages/administrador/administrador.module#AdministradorPageModule' },
 	{ path: 'super-admin', loadChildren: './pages/super-admin/super-admin.module#SuperAdminPageModule' },
+	{ path: 'tickets', loadChildren: './pages/tickets/tickets.module#TicketsPageModule' },
+	{ path: 'nuevo-ticket', loadChildren: './pages/nuevo-ticket/nuevo-ticket.module#NuevoTicketPageModule' },
+	{ path: 'conversacion/:idTicket', loadChildren: './pages/conversacion/conversacion.module#ConversacionPageModule', data:{}},
+	{ path: 'chat', loadChildren: './pages/chat/chat.module#ChatPageModule' },
+	{ path: 'tickets-admin', loadChildren: './pages/tickets-admin/tickets-admin.module#TicketsAdminPageModule' },
 	{ path: '**', pathMatch: 'full', redirectTo: 'login'},
+
+
+
+
+
 ];
 
 @NgModule({

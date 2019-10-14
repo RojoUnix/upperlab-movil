@@ -1,0 +1,35 @@
+<div class="mt-4">
+	<div *ngFor="let ticket of tickets" class="card mb-3 mr-0 pr-0">
+		<ion-card>
+			<ion-card-content>
+				<ion-card-title>{{ ticket.titulo }} - {{ ticket.id }}</ion-card-title>
+				<ion-card-subtitle>{{ ticket.descripcion }}</ion-card-subtitle>
+				<div class="d-flex flex-row mt-3">
+					<div>{{ ticket.laboratorio | uppercase }}</div>
+					<div><small class="text-muted">{{ ticket.equipo.nombre | uppercase }}</small></div>
+					<div><small class="text-muted">{{ ticket.urgencia }}</small></div>
+					<small class="text-muted">{{ ticket.timestamp }}</small>
+					<ion-button style="left: 0px" [routerLink]="['/conversacion', ticket.id]">
+						<ion-icon name="chatboxes"></ion-icon>
+					</ion-button>
+				</div>
+				
+			</ion-card-content>
+		</ion-card>
+		
+	</div>
+	<div class="col mr-0 pr-0" style="min-width: 50px; max-width: 50px; background-color: red;">
+	</div>
+
+	<ion-fab vertical="bottom" horizontal="end" style="position:fixed;" *ngIf="esAlumno == true">
+		<ion-fab-button routerLink="/nuevo-ticket">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+
+	<div style="bottom: 0px; position: fixed; margin: auto">
+		<form (ngSubmit)="cerrarSesion()" >
+			<ion-button type="submit">Cerrar sesión</ion-button>
+		</form>
+	</div>
+</div>

@@ -1,17 +1,15 @@
-import { ComponentsModule } from './../../components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
 
-import { AsistenciaQrPage } from './asistencia-qr.page';
+import { NuevoTicketPage } from './nuevo-ticket.page';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: AsistenciaQrPage
+		component: NuevoTicketPage
 	}
 ];
 
@@ -20,11 +18,11 @@ const routes: Routes = [
 		CommonModule,
 		FormsModule,
 		IonicModule,
-		RouterModule.forChild(routes),
-		ComponentsModule
+		ReactiveFormsModule,
+		RouterModule.forChild(routes)
 	],
 	declarations: [
-		AsistenciaQrPage,
+		NuevoTicketPage
 	]
 })
-export class AsistenciaQrPageModule {}
+export class NuevoTicketPageModule {}

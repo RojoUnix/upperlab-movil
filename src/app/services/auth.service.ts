@@ -1,8 +1,10 @@
+import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ROLES } from '../config/config';
-
+import { AlumnoModel } from '../models/alumno.model';
+import { AlumnosService } from './alumno.service';
 
 
 @Injectable({
@@ -13,9 +15,10 @@ export class AuthService {
 	// Se agrega la modelo de usuario
 	public usuario: firebase.User;
 	public rol: number;
+	alumno: AlumnoModel;
 	
 	// Inyectamos el servicio
-	constructor( public afAuth: AngularFireAuth, private router: Router ) { }
+	constructor( public afAuth: AngularFireAuth, private router: Router, private alumnosService: AlumnosService, private storage: Storage ) { }
 	
 	// Función para Iniciar Sesión
 	iniciarSesion( correo: string, contrasena: string ) {
@@ -32,12 +35,14 @@ export class AuthService {
 	// Manejo del Token
 	almacenarToken() {
 		this.afAuth.auth.currentUser.getIdToken(true).then( idToken => {
-			localStorage.setItem('token', idToken);
+			console.log(idToken);
+			
+			this.storage.set('token', idToken);
 		});
 	}
 	
 	borrarToken(){
-		localStorage.removeItem('token');
+		this.storage.remove('token');
 	}
 		
 	// Valor numerico del Rol
@@ -61,6 +66,42 @@ export class AuthService {
 		}).catch( err => {
 			console.log('Cerrar Sesión Catch()');
 			console.log( err );
+		});
+	}
+
+	//Consultar datos del usuario
+	consultarDatosUsuario() {
+		if ( this.rol === ROLES.ADMINISTRADOR || this.rol === ROLES.SUPERADMINISTRADOR ) {
+
+		} else if ( this.rol === ROLES.PROFESOR ) {
+
+		} else if ( this.rol === ROLES.ALUMNO ) {
+			
+			return this.consultarDatosAlumno();
+
+		}
+	}
+
+	//Consultar Datos del Alumno
+	consultarDatosAlumno(): Promise<boolean> {
+		return new Promise( (resolve, reject) => {
+
+			this.alumnosService.getAlumnoPorMatricula( this.usuario.email.split('@')[0] ).toPromise().then( respuesta => {
+				console.log(respuesta);
+				this.alumno = new AlumnoModel(respuesta.alumno);
+				return this.alumnosService.getAsignacionesDeAlumno( this.alumno.matricula ).toPromise();
+			}).then( (respuesta) => {
+				if ( respuesta.ok ) {
+					this.alumno.asignaciones = respuesta.asignaciones;
+					console.log('Asignaciones obtenidas...');
+					console.log(this.alumno.asignaciones);
+				}
+
+				return resolve();
+			}).catch( err => {
+				// this.swalService.error('Error', err.error.message);
+				return reject();
+			});
 		});
 	}
 			

@@ -1,4 +1,3 @@
-import { ComponentsModule } from './../../components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AsistenciaQrPage } from './asistencia-qr.page';
+import { ChatPage } from './chat.page';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: AsistenciaQrPage
+		component: ChatPage
 	}
 ];
 
@@ -20,11 +19,8 @@ const routes: Routes = [
 		CommonModule,
 		FormsModule,
 		IonicModule,
-		RouterModule.forChild(routes),
-		ComponentsModule
+		RouterModule.forChild(routes)
 	],
-	declarations: [
-		AsistenciaQrPage,
-	]
+	declarations: [ChatPage]
 })
-export class AsistenciaQrPageModule {}
+export class ChatPageModule {}

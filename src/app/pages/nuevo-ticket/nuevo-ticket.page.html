@@ -1,0 +1,47 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>CREAR NUEVO TICKET</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" novalidate="novalidate">
+	<!-- INPUT - TÍTULO -->
+	<ion-item>
+		<ion-label>Título: </ion-label>
+		<ion-input [placeholder]="'titulo'" [formControlName]="'titulo'" requiered></ion-input>
+	</ion-item>
+	<!-- INPUT - DESCRIPCION -->
+	<ion-item>
+		<ion-label>Descripción: </ion-label>
+		<ion-input [placeholder]="'Descripción'" [formControlName]="'descripcion'" requiered></ion-input>
+	</ion-item>
+
+	<!-- CHECKBOXES - COMPONENTES -->
+	<label>Componentes con fallas: </label> <br>
+	<div *ngFor="let componente of formulario.controls['componentes']['controls']; let i = index" class="form-check">
+		<ion-item>
+			<ion-checkbox [formControl]="componente" class="form-check-input"></ion-checkbox>
+			<ion-label class="form-check-label" class="uk-text-uppercase">{{ opcionesCheckbox[i] }}</ion-label>
+		</ion-item>
+	</div>
+	<div style="padding-left: 20px">
+		<ion-label>Otros: </ion-label>
+		<ion-input type="text" [placeholder]="'otro'" [formControlName]="'otro'" requiered></ion-input>
+	</div>
+
+	<!-- SELECT - EQUIPOS ASIGNADOS -->
+	<ion-item>
+		<ion-label>Seleccione equipo: </ion-label>
+		<ion-select [formControlName]="'equipo'">
+			<ion-select-option *ngFor="let equipo of equipos" [value]="equipo.value">{{ equipo.name }}</ion-select-option>
+		</ion-select>
+	</ion-item>
+	
+	<!-- BUTTON - LEVANTAR TICKET -->
+	<ion-button type="submit" class="btn btn-primary">Levantar Ticket</ion-button>
+	<ion-button (click)="cancelar()"  class="btn btn-danger">Cancelar</ion-button>
+</form>
+
+</ion-content>

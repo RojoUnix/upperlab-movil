@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP } from '@ionic-native/http/ngx';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,10 +15,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { LoginPageModule } from './pages/login/login.module';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChatService } from './services/chat.service';
+import { ComponentsModule } from './components/components.module';
 
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [
+		AppComponent,
+	],
 	entryComponents: [],
 	imports: [
 		BrowserModule, 
@@ -29,10 +33,14 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		AngularFireAuthModule,
 		IonicStorageModule.forRoot(),
-		LoginPageModule
+		LoginPageModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+		FormsModule,
+		ComponentsModule		
 	],
 	providers: [
-		HTTP,
+		ChatService,
 		StatusBar,
 		SplashScreen,
 		BarcodeScanner,

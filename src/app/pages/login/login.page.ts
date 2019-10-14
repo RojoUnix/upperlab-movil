@@ -3,9 +3,9 @@ import { AuthService } from '../../services/auth.service';
 import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
 import { ROLES } from 'src/app/config/config';
 import { Storage } from '@ionic/storage';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
 	selector: 'app-login',
@@ -16,7 +16,7 @@ import { Storage } from '@ionic/storage';
 export class LoginPage implements OnInit {
 	public formulario: FormGroup;
 
-	constructor( public storage: Storage, private authServicio: AuthService, private router: Router, public alertController: AlertController ) {
+	constructor( public storage: Storage, private authServicio: AuthService, private router: Router, private alertService: AlertService ) {
 	}
 	
 	ngOnInit() {
@@ -46,48 +46,26 @@ export class LoginPage implements OnInit {
 
 				// Guardar token
 				this.storage.set('token', idTokenResult.token);
-
+				
+			
 				if( rol === ROLES.SUPERADMINISTRADOR ){
 					this.router.navigate(['super-admin']);
 				} else if ( rol === ROLES.ADMINISTRADOR ){
-					this.router.navigate(['administrador']);
+					this.router.navigate(['tickets']);
 				} else if (rol === ROLES.PROFESOR){
 					this.router.navigate(['profesor']);
 				} else {
 					// Ejemplo de envió http
-					this.router.navigate(['asistencia-qr']);
-				}
-				
-				
+					this.router.navigate(['tickets']);
+				}				
 			});
 			
 		}).catch( (error) => {
 			console.log('Login');
-			
 			console.log(error);
-			
 			// Alerta Incorrecto
-			this.mostrarAlerta();
-			
+			this.alertService.mostrarError('Error', 'Usuario o Contraseña incorrectos');
 		});
 		
-	}
-
-
-	// Alertas
-	async mostrarAlerta() {
-		const alert = await this.alertController.create({
-			header: 'Error ',
-			subHeader: 'Usuario y/o contraña incorrectos',
-			// message: 'Esta es una alerta',
-			buttons: [{
-				text: 'Aceptar',
-				cssClass: 'primary',
-				handler: (blah) => {
-					console.log('Alerta error');
-				}
-			}]
-		});
-		await alert.present();
 	}
 }
