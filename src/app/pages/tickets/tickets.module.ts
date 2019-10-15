@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { TicketsPage } from './tickets.page';
+import { TicketsPage } from './tickets.page'; 
 
 const routes: Routes = [
   {

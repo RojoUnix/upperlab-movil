@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../authentication/auth.service';
-import { ROLES } from '../../config/config';
 import { Location } from '@angular/common';
-import Swal from 'sweetalert2';
+import { AuthService } from '../services/auth.service';
+import { ROLES } from '../config/config';
+import { AlertService } from '../services/alert.service';
+
 
 @Injectable({
 	providedIn: 'root'
 })
 export class RoleGuard implements CanActivate {
 	
-	constructor(private authService: AuthService, private router: Router, private _location: Location ) {}
+	constructor(private alertService: AlertService, private authService: AuthService, private router: Router, private _location: Location ) {}
 	
 	canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
 		
@@ -35,15 +36,11 @@ export class RoleGuard implements CanActivate {
 					if (this.router.url === '/') {
 						this.router.navigate(['/admin/dashboard']);
 					} else {
-						Swal.fire({
-							title: 'Permisos insuficientes',
-							text: 'No tienes permiso para realizar esta acción',
-							type: 'warning'
-						});
+						this.alertService.mostrarError('Permisos insuficientes','No tienes permiso para realizar esta acción');
 					}
 				} else if ( rol === ROLES.ALUMNO ) {
 					console.log('%c Eres Alumno', 'color: pink');
-					this.router.navigate(['alumno/inicio']);
+					this.router.navigate(['alumno/asistencia']);
 				} else if ( rol === ROLES.PROFESOR ) {
 					console.log('%c Eres Profesor', 'color: pink');
 					this.router.navigate(['profesor/inicio']);

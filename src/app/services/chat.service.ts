@@ -1,3 +1,4 @@
+import { MensajeInterface } from './../models/ticket.model';
 import io from 'socket.io-client';
 import { Injectable } from '@angular/core';
 import { URL_SERVICIOS } from '../config/config';
@@ -40,7 +41,7 @@ export class ChatService {
 	}
 	
 	nuevoUsuarioEntro(){
-		let observable = new Observable<{user:String, mensaje:String}>(observer=>{
+		let observable = new Observable<{ mensaje:MensajeInterface }>(observer=>{
 			this.socket.on('nuevoUsuario', (data)=>{
 				observer.next(data);
 			});
@@ -54,7 +55,7 @@ export class ChatService {
 	}
 	
 	usuarioAbandonoSala(){
-		let observable = new Observable<{user:String, mensaje: String}>(observer=>{
+		let observable = new Observable<{ mensaje:MensajeInterface }>(observer=>{
 			this.socket.on(' Abandonó la sala ', (data)=>{
 				observer.next(data);
 			});
@@ -70,7 +71,7 @@ export class ChatService {
 	}
 
 	nuevoMensajeRecibido(){
-		let observable = new Observable<{user:String, mensaje: String}>(observer=>{
+		let observable = new Observable<{ mensaje:MensajeInterface }>(observer=>{
 			this.socket.on('Respuesta', (data)=>{
 				console.log('La información que regresa el servidor ', data);
 				observer.next(data);

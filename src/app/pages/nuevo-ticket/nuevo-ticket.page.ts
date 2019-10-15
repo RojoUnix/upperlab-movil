@@ -98,6 +98,7 @@ export class NuevoTicketPage implements OnInit {
 		this.ticketsService.addTicket( this.ticket ).subscribe( respuesta => {
 			this.alertService.success('Exito', 'Ticket Levantado exitosamente').then( () => {
 				this.router.navigate(['tickets']);
+				// TODO: Poner pop para quitar el page de encima.
 			});
 
 		}, err => {
@@ -169,7 +170,8 @@ export class NuevoTicketPage implements OnInit {
 	}
 
 	cancelar(){
-		this.router.navigate(['tickets']);
+		this.router.navigate(['/alumno/tickets']);
+		// TODO: Poner pop para quitar el page de encima.
 	}
 
 }

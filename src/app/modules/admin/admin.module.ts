@@ -5,22 +5,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SuperAdminPage } from './super-admin.page';
+import { AdminPage } from './admin.page';
+import { AdminRoutingModule } from './admin-routing.module';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: SuperAdminPage
-  }
-];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    AdminRoutingModule
   ],
-  declarations: [SuperAdminPage]
+  declarations: [AdminPage]
 })
-export class SuperAdminPageModule {}
+export class AdminPageModule {}

@@ -1,3 +1,4 @@
+import { MensajeInterface } from './../../models/ticket.model';
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
@@ -14,16 +15,16 @@ export class ConversacionPage implements OnInit {
 	formChat = new FormGroup({
 		mensaje: new FormControl('')
 	});
-	nombre: String;
-	sala: String;
-	MensajeTexto: String;
-	mensajesArreglo:Array<{user:String,mensaje:String}> =[];
+	nombre: string;
+	sala: string;
+	MensajeTexto: string;
+	mensajesArreglo: MensajeInterface[] =[];
 	
 	constructor(private chatService: ChatService, private activeRoute: ActivatedRoute, private authService: AuthService){ 
 		//Observables para identificar a Usuarios en la sala y Mensajes
-		this.chatService.nuevoUsuarioEntro().subscribe(data=> this.mensajesArreglo.push(data));
+		this.chatService.nuevoUsuarioEntro().subscribe(data=> this.mensajesArreglo.push(data.mensaje));
 		this.chatService.nuevoMensajeRecibido().subscribe(data=> this.mensajesArreglo.push(data.mensaje));
-		this.chatService.usuarioAbandonoSala().subscribe(data=>	this.mensajesArreglo.push(data));
+		this.chatService.usuarioAbandonoSala().subscribe(data=>	this.mensajesArreglo.push(data.mensaje));
 	}
 	
 	ngOnInit() {

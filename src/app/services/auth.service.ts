@@ -41,8 +41,16 @@ export class AuthService {
 		});
 	}
 	
-	borrarToken(){
+	borrarDatosUsuario(){
 		this.storage.remove('token');
+		this.usuario = null;
+		if ( this.rol === ROLES.ADMINISTRADOR || this.rol === ROLES.SUPERADMINISTRADOR ) {
+			//
+		} else if ( this.rol === ROLES.PROFESOR ) {
+			//
+		} else if ( this.rol === ROLES.ALUMNO ) {
+			this.alumno = null;
+		}
 	}
 		
 	// Valor numerico del Rol
@@ -61,7 +69,7 @@ export class AuthService {
 	// Función para cerrar sesión
 	cerrarSesion() {
 		this.afAuth.auth.signOut().then ( (val) =>{
-			// this.borrarToken();
+			this.borrarDatosUsuario();
 			this.router.navigate(['login']);
 		}).catch( err => {
 			console.log('Cerrar Sesión Catch()');

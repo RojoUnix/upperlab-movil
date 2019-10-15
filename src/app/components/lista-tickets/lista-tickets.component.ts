@@ -14,17 +14,32 @@ export class ListaTicketsComponent implements OnInit {
 	esAlumno: boolean;
 	tickets: TicketModel[] = [];
 
-	constructor( private authService: AuthService, private router: Router, private ticketService: TicketsService ) { }
+	constructor( public authService: AuthService, private router: Router, private ticketService: TicketsService ) { }
 	ngOnInit() {		
-		this.consultarTickets();
 		if(this.authService.rol == ROLES.ALUMNO || this.authService.rol == ROLES.PROFESOR){
+			this.consultarTickets();
 			this.esAlumno = true;
 		}else{
+			this.consultarTicketsAdmin();
 			this.esAlumno = false;
 		}
 	}
-	
-	
+
+	consultarTicketsAdmin(){
+		this.ticketService.getTickets().subscribe(respuesta => {
+			if(respuesta.ok){
+				this.tickets = respuesta.tickets;
+				this.tickets = this.tickets.map( ticket =>{
+					return new TicketModel(ticket);
+				});
+			}
+		}, err => {
+			console.log(err);
+			
+		});
+	}
+
+
 	consultarTickets(){
 		this.ticketService.getTicketsDeAlumno( this.authService.usuario.email.split('@')[0] ).subscribe( respuesta => {
 			console.log(respuesta.tickets);
@@ -39,8 +54,4 @@ export class ListaTicketsComponent implements OnInit {
 			console.log(err);
 		});
 	}
-
-	cerrarSesion(){
-		this.router.navigate(['login']);
-	}s
 }

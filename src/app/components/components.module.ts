@@ -16,7 +16,9 @@ import { MenuComponent } from './menu/menu.component';
   exports:[
     HeaderComponent,
     ListaTicketsComponent,
-    MenuComponent
+    MenuComponent,
+    FormsModule,
+    ReactiveFormsModule
   ],
   imports: [
     IonicModule,

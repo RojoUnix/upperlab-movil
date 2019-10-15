@@ -7,23 +7,21 @@ import { IonicModule } from '@ionic/angular';
 import { ConversacionPage } from './conversacion.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ConversacionPage
-  }
+	{
+		path: '',
+		component: ConversacionPage
+	}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
-    RouterModule.forChild(routes),
-    ComponentsModule
-  ],
-  declarations: [
-    ConversacionPage
-  ]
+	imports: [
+		CommonModule,
+		IonicModule,
+		RouterModule.forChild(routes),
+		ComponentsModule
+	],
+	declarations: [
+		ConversacionPage
+	]
 })
 export class ConversacionPageModule {}

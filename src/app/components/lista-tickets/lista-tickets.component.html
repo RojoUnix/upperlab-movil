@@ -9,7 +9,7 @@
 					<div><small class="text-muted">{{ ticket.equipo.nombre | uppercase }}</small></div>
 					<div><small class="text-muted">{{ ticket.urgencia }}</small></div>
 					<small class="text-muted">{{ ticket.timestamp }}</small>
-					<ion-button style="left: 0px" [routerLink]="['/conversacion', ticket.id]">
+					<ion-button style="left: 0px" [routerLink]="['/alumno/tickets/conversacion', ticket.id]">
 						<ion-icon name="chatboxes"></ion-icon>
 					</ion-button>
 				</div>
@@ -22,13 +22,13 @@
 	</div>
 
 	<ion-fab vertical="bottom" horizontal="end" style="position:fixed;" *ngIf="esAlumno == true">
-		<ion-fab-button routerLink="/nuevo-ticket">
+		<ion-fab-button [routerLink]="['/ticket/nuevo']">
 			<ion-icon name="add"></ion-icon>
 		</ion-fab-button>
 	</ion-fab>
 
 	<div style="bottom: 0px; position: fixed; margin: auto">
-		<form (ngSubmit)="cerrarSesion()" >
+		<form (ngSubmit)="authService.cerrarSesion()" >
 			<ion-button type="submit">Cerrar sesión</ion-button>
 		</form>
 	</div>

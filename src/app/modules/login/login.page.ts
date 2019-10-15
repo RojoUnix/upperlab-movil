@@ -49,14 +49,14 @@ export class LoginPage implements OnInit {
 				
 			
 				if( rol === ROLES.SUPERADMINISTRADOR ){
-					this.router.navigate(['super-admin']);
+					this.alertService.mostrarError('Módulo no implementado', 'El módulo de superadmin aún no está implementado.');
 				} else if ( rol === ROLES.ADMINISTRADOR ){
 					this.router.navigate(['tickets']);
 				} else if (rol === ROLES.PROFESOR){
 					this.router.navigate(['profesor']);
 				} else {
 					// Ejemplo de envió http
-					this.router.navigate(['tickets']);
+					this.router.navigate(['/alumno/asistencia']);
 				}				
 			});
 			

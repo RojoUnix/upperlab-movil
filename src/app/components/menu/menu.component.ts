@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,7 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  opciones: any = [
+    {
+      nombre: 'Asistencia',
+      icono: 'hammer',
+      link: ['/alumno/asistencia']
+    },
+    {
+      nombre: 'Ticket',
+      icono: 'hammer',
+      link: ['/alumno/tickets']
+    },
+    {
+      nombre: 'Solicitud de laboratorios',
+      icono: 'hammer',
+      link: ['/alumno/solicitud']
+    }
+  ]
+  constructor( public authService: AuthService ) { }
 
   ngOnInit() {}
 
