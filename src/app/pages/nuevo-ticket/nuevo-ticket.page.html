@@ -6,7 +6,7 @@
 
 <ion-content>
 
-<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" novalidate="novalidate">
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario(); formulario.reset()" novalidate="novalidate">
 	<!-- INPUT - TÍTULO -->
 	<ion-item>
 		<ion-label>Título: </ion-label>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { AsistenciaService } from '../../services/asistencia.service';
-import { AuthService } from '../../services/auth.service';
+import { AsistenciaService } from '../../../../services/asistencia.service';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
 	selector: 'app-asistencia-qr',
@@ -19,7 +19,6 @@ export class AsistenciaQrPage implements OnInit {
 	
 	// Entrará y lanzara la funcion de Scan
 	ionViewWillEnter() {
-		
 		this.scan();
 	}
 	

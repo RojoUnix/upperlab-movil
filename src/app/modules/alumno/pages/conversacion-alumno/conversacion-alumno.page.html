@@ -1,0 +1,39 @@
+<app-header titulo="Conversación"></app-header>
+
+<ion-content padding id="principal">
+<!-- CHAT -->
+	<div *ngFor="let mensaje of chatService.ticketsMaster[ticketSeleccionado?.id]?.chat" style="margin-bottom: 40px;">
+		<ion-item *ngIf="matricula !== mensaje.matricula">
+			<!-- <div class="chat-img"><img [src]="mensaje.img" alt="user"></div> -->
+			<ion-label>
+				<p class="cajaUsuario">{{ mensaje.nombre }}:
+					{{ mensaje.mensaje }}
+				</p>
+				<small> {{ mensaje.timestamp | date:'medium' }} </small>
+			</ion-label>
+		</ion-item>
+
+		<ion-item *ngIf="matricula === mensaje.matricula">
+			<!-- <div class="chat-img"><img [src]="mensaje.img" alt="user"></div> -->
+			<ion-label>
+				<p class="cajaVisita">{{ mensaje.nombre }}
+					{{ mensaje.mensaje }}
+				</p>
+				<small style="position: right;"> {{ mensaje.timestamp | date:'medium' }} </small>
+			</ion-label>
+		</ion-item>
+	</div>
+	
+	<!-- Texto para enviar -->
+	<div>
+		<ion-item style="bottom: 0px; position: fixed;">
+			<form [formGroup]="mensajeForm">
+				<ion-input formControlName="mensaje" placeholder="Escribe tu mensaje aquí" expand="full"  (keyup.enter)="enviarMensaje()"></ion-input>
+			</form>
+		</ion-item>			
+		<ion-button type="submit" vertical="bottom" horizontal="end" style="right: 0; bottom: 0px; position: fixed;" (click)="enviarMensaje()">
+			<ion-icon name="send"></ion-icon>
+		</ion-button>
+	
+	</div>
+</ion-content>

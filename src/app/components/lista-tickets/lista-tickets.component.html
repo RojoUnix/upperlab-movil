@@ -1,35 +1,35 @@
-<div class="mt-4">
-	<div *ngFor="let ticket of tickets" class="card mb-3 mr-0 pr-0">
+<div id="principal">
+	<div *ngFor="let id of objectKeys(this.chatService.ticketsMaster), let i = index">
 		<ion-card>
 			<ion-card-content>
-				<ion-card-title>{{ ticket.titulo }} - {{ ticket.id }}</ion-card-title>
-				<ion-card-subtitle>{{ ticket.descripcion }}</ion-card-subtitle>
-				<div class="d-flex flex-row mt-3">
-					<div>{{ ticket.laboratorio | uppercase }}</div>
-					<div><small class="text-muted">{{ ticket.equipo.nombre | uppercase }}</small></div>
-					<div><small class="text-muted">{{ ticket.urgencia }}</small></div>
-					<small class="text-muted">{{ ticket.timestamp }}</small>
-					<ion-button style="left: 0px" [routerLink]="['/alumno/tickets/conversacion', ticket.id]">
+				<ion-card-title>{{ i+1 }} - {{ chatService.ticketsMaster[id].titulo }}
+					<br>
+					<small> ID Ticket: {{ chatService.ticketsMaster[id].id }}</small></ion-card-title>
+					<ion-card-subtitle>{{ chatService.ticketsMaster[id].descripcion }}</ion-card-subtitle>
+					<ion-label>{{ chatService.ticketsMaster[id].laboratorio | uppercase }}</ion-label>
+					<ion-label>{{ chatService.ticketsMaster[id].equipo.nombre | uppercase }}</ion-label>
+					<ion-label>{{ chatService.ticketsMaster[id].urgencia }}</ion-label>
+					<br>
+					<ion-label> {{ chatService.ticketsMaster[id].timestamp }} </ion-label>
+					<ion-button [color]=" esAdmin ? 'danger' : 'tertiary'" [routerLink]="['conversacion', chatService.ticketsMaster[id].id]">
 						<ion-icon name="chatboxes"></ion-icon>
 					</ion-button>
+				</ion-card-content>
+				<div style="background-color: red;">
+					<br><!-- Color de fondo -->
 				</div>
-				
-			</ion-card-content>
-		</ion-card>
+			</ion-card>
+		</div>
 		
-	</div>
-	<div class="col mr-0 pr-0" style="min-width: 50px; max-width: 50px; background-color: red;">
-	</div>
-
-	<ion-fab vertical="bottom" horizontal="end" style="position:fixed;" *ngIf="esAlumno == true">
-		<ion-fab-button [routerLink]="['/ticket/nuevo']">
+	<ion-fab vertical="bottom" horizontal="end" style="position:fixed;" *ngIf="esAdmin !== true">
+		<ion-fab-button [routerLink]="['/ticket/nuevo/']">
 			<ion-icon name="add"></ion-icon>
 		</ion-fab-button>
 	</ion-fab>
-
-	<div style="bottom: 0px; position: fixed; margin: auto">
+		
+	<div vertical="bottom" style="bottom: 0px; float: right; margin: auto">
 		<form (ngSubmit)="authService.cerrarSesion()" >
-			<ion-button type="submit">Cerrar sesión</ion-button>
+			<ion-button type="submit" vertical="bottom" horizontal="end">Cerrar sesión</ion-button>
 		</form>
 	</div>
 </div>

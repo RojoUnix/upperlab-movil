@@ -23,13 +23,8 @@ export class TicketModel {
 	} = { id: '', nombre: ''};
 	urgencia: number;
 	estado: number;
-	usuario: UsuarioInterface  =  { 
-		rol: null,
-		matricula: '', 
-		nombre: '', 
-		apellidoP: '', 
-		apellidoM: ''
-	};
+	usuario: UsuarioInterface = { rol: null, matricula: '', nombre: '', apellidoP: '', apellidoM: ''};
+	chat: MensajeInterface[] = [];
 
 
 	constructor( ticket?: TicketModel ) {
@@ -44,10 +39,12 @@ export class TicketModel {
 			this.urgencia = ticket.urgencia;
 			this.estado = ticket.estado;
 			this.usuario = ticket.usuario;
+			this.chat = ticket.chat || [];
 		}
 	}
 
 	agregarUsuario( usuario: AlumnoModel | ProfesorModel ) {
+
 		if ( usuario instanceof AlumnoModel ) {
 			this.usuario.grupo = usuario.grupo;
 			this.usuario.rol = ROLES.ALUMNO;
@@ -59,19 +56,19 @@ export class TicketModel {
 		this.usuario.nombre = usuario.nombre;
 		this.usuario.apellidoP = usuario.apellidoP;
 		this.usuario.apellidoM = usuario.apellidoM;
+		
 	}
 
 }
 
-
 export interface UsuarioInterface {
-
 	rol: number;
 	matricula: string;
 	nombre: string;
 	apellidoP: string;
 	apellidoM: string;
 	grupo?: string;
+	estado?: number;
 
 }
 
@@ -81,5 +78,5 @@ export interface MensajeInterface {
 	mensaje: string;
 	timestamp: string;
 	img: string;
-	sala: string;
+	sala?: string;
 }

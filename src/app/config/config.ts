@@ -5,7 +5,6 @@ export const ROLES = {
 	SUPERADMINISTRADOR: 4
 };
 
-export const URL_SERVICIOS = 'http://localhost:3000';
 
 export const ESTADOS_EQUIPO = {
 	ESTABLE: 1,
@@ -17,3 +16,5 @@ export const ESTADOS_COMPONENTE = {
 	ESTABLE: 1,
 	DESMONTADO: 2
 };
+
+export const MATRICULA_WOLFBOT = 'WOLFBOT1423';

@@ -34,9 +34,9 @@ import { AlumnoPageModule } from './modules/alumno/alumno.module';
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		AngularFireAuthModule,
 		IonicStorageModule.forRoot(),
+		ComponentsModule,
 		AlumnoPageModule,
 		AdminPageModule,
-		ComponentsModule,
 		LoginPageModule,
 		AppRoutingModule, 
 		ReactiveFormsModule,
@@ -47,6 +47,7 @@ import { AlumnoPageModule } from './modules/alumno/alumno.module';
 		ChatService,
 		StatusBar,
 		SplashScreen,
+		ComponentsModule,
 		BarcodeScanner,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
 	],

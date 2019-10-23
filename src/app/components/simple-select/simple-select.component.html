@@ -1,0 +1,7 @@
+<div class="form-group" [ngClass]="{'text-danger': inputInvalido()}" [formGroup]="formulario">
+	<label> {{ (this.labelAcentuado || this.label) | titlecase }} </label>
+	<input [type]="type" class="form-control" [ngClass]="{'form-control-sm': small, 'is-invalid': inputInvalido()}" [formControlName]="label" [placeholder]="placeholder" [required]="required">
+	<small class="form-text" *ngIf="inputErrores()">
+		Ingrese {{ generoMasculino ?  'un' : 'una' }} {{ (this.labelAcentuado || this.label) }}.
+	</small>
+</div>

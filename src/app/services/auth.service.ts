@@ -5,7 +5,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { ROLES } from '../config/config';
 import { AlumnoModel } from '../models/alumno.model';
 import { AlumnosService } from './alumno.service';
-
+import { ProfesorModel } from '../models/profesor.model';
+import { AlertService } from './alert.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,9 +17,10 @@ export class AuthService {
 	public usuario: firebase.User;
 	public rol: number;
 	alumno: AlumnoModel;
+	profesor: ProfesorModel;
 	
 	// Inyectamos el servicio
-	constructor( public afAuth: AngularFireAuth, private router: Router, private alumnosService: AlumnosService, private storage: Storage ) { }
+	constructor( public afAuth: AngularFireAuth, private router: Router, private alumnosService: AlumnosService, private storage: Storage, private alertService: AlertService ) { }
 	
 	// Función para Iniciar Sesión
 	iniciarSesion( correo: string, contrasena: string ) {
@@ -107,10 +109,31 @@ export class AuthService {
 
 				return resolve();
 			}).catch( err => {
-				// this.swalService.error('Error', err.error.message);
-				return reject();
+				if ( err.error ) {
+					this.alertService.mostrarError('Error', err.error.message);
+				} else {
+					console.log(err);
+				}
+				return reject(err);
 			});
 		});
+	}
+
+	// Roles de los usuarios
+	isSuperadmin() {
+		return this.rol === ROLES.SUPERADMINISTRADOR;
+	}
+
+	isAdmin() {
+		return this.rol === ROLES.ADMINISTRADOR;
+	}
+
+	isProfesor() {
+		return this.rol === ROLES.PROFESOR;
+	}
+
+	isAlumno() {
+		return this.rol === ROLES.ALUMNO;
 	}
 			
 }
