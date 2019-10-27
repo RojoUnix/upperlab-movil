@@ -1,6 +1,8 @@
 import { AlumnoModel } from './alumno.model';
 import { ProfesorModel } from './profesor.model';
-import { ROLES } from '../config/config';
+import { ROLES, URGENCIAS_TIEMPO } from '../config/config';
+import { UrgenciaItem, TipoTicketItem, IncidenciaComunItem } from '../shared/interfaces/interfaces';
+
 
 export class TicketModel {
 
@@ -21,10 +23,36 @@ export class TicketModel {
 		id: string,
 		nombre: string
 	} = { id: '', nombre: ''};
-	urgencia: number;
+	urgencia: UrgenciaItem = { 
+		id: 0,
+		titulo: '', 
+		tiempo: 0, 
+		unidad: URGENCIAS_TIEMPO.MINUTO.value,
+		color: ''
+	};
+	tipo: TipoTicketItem = {
+		id: 0,
+		titulo: ''
+	};
+	comun: IncidenciaComunItem = {
+		id: 0,
+		titulo: '',
+		tipo: 0
+	};
 	estado: number;
 	usuario: UsuarioInterface = { rol: null, matricula: '', nombre: '', apellidoP: '', apellidoM: ''};
 	chat: MensajeInterface[] = [];
+	encuesta: EncuestaInterface = {
+		estado: 0,
+		preguntas: [
+			{ pregunta: '¿Cómo califica la rapidez del técnico al solucionar su problema?', respuesta: 0 },
+			{ pregunta: '¿Cómo califica la solución que le dio el técnico?', respuesta: 0 },
+			{ pregunta: 'Si habló por el chat, ¿cómo califica la atención del técnico?', respuesta: 0 },
+			{ pregunta: 'Si habló por el chat, ¿cómo califica la rapidez del técnico en contestarle?', respuesta: 0 },
+			{ pregunta: 'Si habló por el chat, ¿cómo califica su interfaz y usabilidad?', respuesta: 0 }
+		],
+		comentarios: ''
+	};
 
 
 	constructor( ticket?: TicketModel ) {
@@ -36,10 +64,14 @@ export class TicketModel {
 			this.dispositivos = ticket.dispositivos;
 			this.laboratorio = ticket.laboratorio;
 			this.equipo = ticket.equipo;
-			this.urgencia = ticket.urgencia;
 			this.estado = ticket.estado;
 			this.usuario = ticket.usuario;
-			this.chat = ticket.chat || [];
+			this.chat = ticket.chat;
+			this.encuesta = ticket.encuesta;
+			if ( ticket.urgencia ) { this.urgencia = ticket.urgencia; }
+			if ( ticket.tipo ) { this.tipo = ticket.tipo; }
+			if ( ticket.comun ) { this.comun = ticket.comun; }
+			
 		}
 	}
 
@@ -62,6 +94,7 @@ export class TicketModel {
 }
 
 export interface UsuarioInterface {
+
 	rol: number;
 	matricula: string;
 	nombre: string;
@@ -79,4 +112,10 @@ export interface MensajeInterface {
 	timestamp: string;
 	img: string;
 	sala?: string;
+}
+
+export interface EncuestaInterface {
+	estado: number;
+	preguntas: { pregunta: string, respuesta: number }[];
+	comentarios: string;
 }

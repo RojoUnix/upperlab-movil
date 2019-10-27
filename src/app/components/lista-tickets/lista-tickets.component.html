@@ -22,14 +22,14 @@
 		</div>
 		
 	<ion-fab vertical="bottom" horizontal="end" style="position:fixed;" *ngIf="esAdmin !== true">
-		<ion-fab-button [routerLink]="['/ticket/nuevo/']">
+		<ion-fab-button [routerLink]="['nuevo']">
 			<ion-icon name="add"></ion-icon>
 		</ion-fab-button>
 	</ion-fab>
 		
 	<div vertical="bottom" style="bottom: 0px; float: right; margin: auto">
 		<form (ngSubmit)="authService.cerrarSesion()" >
-			<ion-button type="submit" vertical="bottom" horizontal="end">Cerrar sesión</ion-button>
+			<ion-button type="submit" vertical="bottom">Cerrar sesión</ion-button>
 		</form>
 	</div>
 </div>

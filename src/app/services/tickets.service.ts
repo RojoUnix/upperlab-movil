@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { TicketModel } from '../models/ticket.model';
 import { MATRICULA_WOLFBOT } from '../config/config';
 import { URL_SERVICIOS } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,7 +27,7 @@ export class TicketsService {
 
 	getTicketsPorMatricula( matricula: string ): Observable<any> {
 		return from( this.storage.get('token') ).pipe( mergeMap ( token => {
-			const url = this.URL_TICKETS + `/${ matricula }?token=${ token }`;
+			const url = this.URL_TICKETS + `/usuario/${ matricula }?token=${ token }`;
 			return this.http.get(url);
 		}));
 	}	

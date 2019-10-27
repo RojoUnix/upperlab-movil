@@ -5,6 +5,8 @@ import { TicketModel } from '../../models/ticket.model';
 import { ROLES } from '../../config/config';
 import { ChatService } from '../../services/chat.service';
 import { Router } from '@angular/router';
+import { ClasificacionesService } from '../../services/clasificaciones.service';
+import { Clasificaciones } from '../../shared/interfaces/interfaces';
 
 @Component({
 	selector: 'app-lista-tickets',
@@ -15,16 +17,21 @@ export class ListaTicketsComponent implements OnInit {
 	esAdmin: boolean;
 	esAlumno: boolean;
 	esProfesor: boolean;
+
+	clasificacionesMaster: Clasificaciones;
+
 	// tslint:disable-next-line: typedef
 	objectKeys = Object.keys;
 	tickets: TicketModel[] = [];
 
-	constructor( public authService: AuthService, public ticketService: TicketsService, public chatService:ChatService, public router: Router ) { }
+	constructor( public authService: AuthService, public clasificacionesService: ClasificacionesService,public ticketService: TicketsService, public chatService:ChatService, public router: Router ) { }
 	ngOnInit() {		
 		console.log('LISTA DE TICKETS');
 		console.log('USUARIO: ', this.authService.usuario.displayName);
 		console.log('MATRICULA: ', this.authService.usuario.email.split('@')[0]);
 		
+		this.consultarClasificaciones();
+
 		if(this.authService.rol == ROLES.ALUMNO){
 			console.log('Entro Profesor');
 			this.esProfesor= true;
@@ -32,7 +39,7 @@ export class ListaTicketsComponent implements OnInit {
 			
 		} else if(this.authService.rol == ROLES.PROFESOR){
 			//Consultando tickets para Alumno o Profesor
-			console.log('Entro Profesor');
+			console.log('Entro Aluamno');
 			this.esAlumno = true;
 			this.getTicketsMatricula();
 		}else{
@@ -55,8 +62,35 @@ export class ListaTicketsComponent implements OnInit {
 		});
 	}
 
+
+	consultarClasificaciones() {
+		this.clasificacionesService.getClasificaciones().subscribe( respuesta => {
+			console.log('Respuesta');
+			console.log(respuesta);
+			this.clasificacionesMaster = respuesta.clasificaciones;
+			
+
+			if ( !this.clasificacionesMaster.urgencias  || !this.clasificacionesMaster.urgencias.items ) {
+				this.clasificacionesMaster.urgencias = { items: [], idDisponible: 1};
+			}
+			
+			if ( !this.clasificacionesMaster.tipos || !this.clasificacionesMaster.tipos.items ) {
+				this.clasificacionesMaster.tipos = { items: [], idDisponible: 1};
+			}
+
+			if ( !this.clasificacionesMaster.comunes || !this.clasificacionesMaster.comunes.items ) {
+				this.clasificacionesMaster.comunes = { items: [], idDisponible: 1}; 
+			}
+
+			// this.pasarClasificacionesAOpciones();
+		});
+	}
+
+
 	getTicketsAdmin(){
 		this.ticketService.getTickets().subscribe(respuesta => {
+			console.log('respuesta');
+			console.log(respuesta);
 			if(respuesta.ok){
 				const ticketHolder: TicketModel[] = respuesta.tickets;
 				ticketHolder.forEach(ticket =>{
