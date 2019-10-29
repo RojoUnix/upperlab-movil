@@ -1,75 +1,66 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-
+import { SelectOptions } from '../../shared/interfaces/interfaces';
 
 
 @Component({
 	selector: 'app-simple-select',
 	templateUrl: './simple-select.component.html',
-	styleUrls: ['./simple-select.component.scss'],
+	styleUrls: ['./simple-select.component.css']
 })
-export class SimpleSelectComponent implements OnInit {
+export class SimpleSelectComponent implements OnInit, OnDestroy {
+	
 	@Input() formulario: FormGroup;
-	@Input() small: boolean;
+	@Input() small: boolean = false;
 	@Input() label: string;
 	@Input() labelAcentuado: string;
-	@Input() type: string;
-	@Input() generoMasculino: boolean;
-	@Input() plural: boolean;
-	@Input() required: boolean;
-	@Input() sentObservable: Observable<boolean>;
-	placeholder: string;
+	@Input() sinLabel: boolean = false;
+	@Input() placeholder: string;
+	@Input() opciones: SelectOptions;
+	@Input() opcionGeneroMasculino: boolean;
+	@Input() required: boolean = true;
+	@Input() formularioEnviado$: Observable<boolean>;
+	@Output() cambioDeOpcion: EventEmitter<void> = new EventEmitter();
+
+
 	private eventsSubscription: any;
 	sent: boolean = false;
 	
 	constructor() { }
 	
 	ngOnInit() {
-		
-		
-		let articulo: string;
-		
-		if ( this.generoMasculino && !this.plural ) {
-			articulo = 'el';
-		} else if ( this.generoMasculino && this.plural ) {
-			articulo = 'los';
-		} else if ( this.plural ) {
-			articulo = 'las';
-		} else {
-			articulo = 'la';
+		if ( this.formularioEnviado$ ) {
+			this.eventsSubscription = this.formularioEnviado$.subscribe( status => {
+				this.sent = status;
+			});
 		}
-		
-		this.placeholder = 'Ingrese ' + articulo  + ' ' + ( this.labelAcentuado || this.label);
-		
-		this.eventsSubscription = this.sentObservable.subscribe( status => {
-			console.log('Status: ');
-			console.log(status);
-			this.sent = status;
-		});
-		
 	}
-	
-	
-	inputInvalido() {
-		const validacion1 =  this.formulario.get(this.label.toLowerCase()).invalid && this.formulario.get(this.label.toLowerCase()).dirty;
-		const validacion2 =  this.formulario.get(this.label.toLowerCase()).invalid && this.sent;
-		
+
+
+	selectInvalido() {
+
+		const validacion1 =  this.formulario.get(this.label).invalid && this.formulario.get(this.label).dirty;
+		const validacion2 =  this.formulario.get(this.label).invalid && this.sent;
+
 		return validacion1 || validacion2;
 	}
-	
-	inputErrores() {
-		
+
+	selectErrores() {
+
 		if ( this.required ) {
-			const validacion1 =  (this.formulario.controls[this.label.toLowerCase()].errors || {}).required && this.formulario.get(this.label.toLowerCase()).dirty;
-			const validacion2 =  (this.formulario.controls[this.label.toLowerCase()].errors || {}).required && this.sent;
-			
+			const validacion1 =  (this.formulario.controls[this.label].errors || {}).required && this.formulario.get(this.label).dirty;
+			const validacion2 =  (this.formulario.controls[this.label].errors || {}).required && this.sent;
+	
 			return validacion1 || validacion2;
 		}
+
 		return false;
 	}
 	
 	ngOnDestroy() {
-		this.eventsSubscription.unsubscribe();
+		if ( this.eventsSubscription ) {
+			this.eventsSubscription.unsubscribe();
+		}
 	}
 }

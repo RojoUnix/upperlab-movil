@@ -15,6 +15,7 @@ export class RoleGuard implements CanActivate {
 	constructor(private alertService: AlertService, private authService: AuthService, private router: Router, private _location: Location ) {}
 	
 	canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+		console.log('Funcion canActivate...');
 		
 		return new Promise( (resolve, reject) => {
 
@@ -30,25 +31,25 @@ export class RoleGuard implements CanActivate {
 			} else {
 				console.log('%c RoleGuard -> Acceso NO permitido', 'color: pink');
 					
-				if ( rol === ROLES.SUPERADMINISTRADOR) {
-					console.log('%c Eres Administrador || Superadministrador', 'color: pink');
+				// if ( rol === ROLES.SUPERADMINISTRADOR) {
+				// 	console.log('%c Eres Administrador || Superadministrador', 'color: pink');
 					
-					if (this.router.url === '/') {
-						this.router.navigate(['/login']);
-					} else {
-						this.alertService.mostrarError('Permisos insuficientes','No tienes permiso para realizar esta acción');
-					}
-				} else if (rol === ROLES.ADMINISTRADOR){
+				// 	if (this.router.url === '/') {
+				// 		this.router.navigate(['/admin/tickets']);
+				// 	} else {
+				// 		this.alertService.mostrarError('Permisos insuficientes','No tienes permiso para realizar esta acción');
+				// 	}
+				if (rol === ROLES.ADMINISTRADOR){
 					console.log('%c Eres ADMINISTRADOR','color: red');
 					console.log(this.router.url);
 					
-					this.router.navigate(['admin/tickets']);
+					this.router.navigate(['/admin/tickets']);
 				} else if ( rol === ROLES.ALUMNO ) {
 					console.log('%c Eres ALUMNO', 'color: pink');
-					this.router.navigate(['alumno/asistencia']);
+					this.router.navigate(['/alumno/asistencia']);
 				} else if ( rol === ROLES.PROFESOR ) {
 					console.log('%c Eres PROFESOR', 'color: pink');
-					this.router.navigate(['login']);
+					this.router.navigate(['/profesor/solicitud']);
 				}
 				
 				return resolve(false);

@@ -2,8 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// export const URL_SERVICIOS = 'http://localhost:3000';
-export const URL_SERVICIOS = 'https://app-upperlab.herokuapp.com';
+export const URL_SERVICIOS = 'http://localhost:3000';
+// export const URL_SERVICIOS = 'https://app-upperlab.herokuapp.com';
 
 // NG SERVE  | IONIC SERVE
 

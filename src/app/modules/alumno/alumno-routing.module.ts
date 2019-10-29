@@ -9,7 +9,6 @@ import { ROLES } from '../../config/config';
 import { AsistenciaQrPage } from './pages/asistencia-qr/asistencia-qr.page';
 import { ConversacionAlumnoPage } from './pages/conversacion-alumno/conversacion-alumno.page';
 import { NuevoTicketPage } from '../../pages/nuevo-ticket/nuevo-ticket.page';
-import { SolicitudPage } from './solicitud/solicitud.page';
 
 const routes: Routes = [
 	{
@@ -60,16 +59,6 @@ const routes: Routes = [
 					guards: [AuthGuard, RoleGuard],
 					roles: [ROLES.ALUMNO]
 				}
-			},
-			{ 
-				path: 'solicitud',
-				pathMatch: 'full',
-				component: SolicitudPage,
-				canActivate: [AllGuard],
-				data: {
-					guards: [AuthGuard, RoleGuard],
-					roles: [ROLES.ALUMNO]
-				} 
 			}
 		]
 		

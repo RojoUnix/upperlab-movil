@@ -33,14 +33,14 @@ export class ListaTicketsComponent implements OnInit {
 		this.consultarClasificaciones();
 
 		if(this.authService.rol == ROLES.ALUMNO){
-			console.log('Entro Profesor');
-			this.esProfesor= true;
+			console.log('Entro Alumno');
+			this.esAlumno= true;
 			this.getTicketsMatricula();
 			
 		} else if(this.authService.rol == ROLES.PROFESOR){
 			//Consultando tickets para Alumno o Profesor
-			console.log('Entro Aluamno');
-			this.esAlumno = true;
+			console.log('Entro Profesor');
+			this.esProfesor = true;
 			this.getTicketsMatricula();
 		}else{
 			// Consultando tickets para Administrador (Todos los tickets)

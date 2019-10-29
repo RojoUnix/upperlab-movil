@@ -8,7 +8,6 @@ import { TicketsPage } from '../../pages/tickets/tickets.page';
 import { AsistenciaQrPage } from './pages/asistencia-qr/asistencia-qr.page';
 import { ConversacionAlumnoPage } from './pages/conversacion-alumno/conversacion-alumno.page';
 import { FormsModule } from '@angular/forms';
-import { SolicitudPage } from './solicitud/solicitud.page';
 
 
 @NgModule({
@@ -17,7 +16,6 @@ import { SolicitudPage } from './solicitud/solicitud.page';
 		AsistenciaQrPage,
 		TicketsPage,
 		ConversacionAlumnoPage,
-		SolicitudPage
 	],
 	imports: [
 		CommonModule,

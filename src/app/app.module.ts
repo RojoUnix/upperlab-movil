@@ -20,6 +20,7 @@ import { ChatService } from './services/chat.service';
 import { ComponentsModule } from './components/components.module';
 import { AdminPageModule } from './modules/admin/admin.module';
 import { AlumnoPageModule } from './modules/alumno/alumno.module';
+import { ProfesorPageModule } from './modules/profesor/profesor.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { AlumnoPageModule } from './modules/alumno/alumno.module';
 		IonicStorageModule.forRoot(),
 		ComponentsModule,
 		AlumnoPageModule,
+		ProfesorPageModule,
 		AdminPageModule,
 		LoginPageModule,
 		AppRoutingModule, 

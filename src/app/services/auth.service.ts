@@ -7,6 +7,7 @@ import { AlumnoModel } from '../models/alumno.model';
 import { AlumnosService } from './alumno.service';
 import { ProfesorModel } from '../models/profesor.model';
 import { AlertService } from './alert.service';
+import { ProfesorService } from './profesor.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
 	profesor: ProfesorModel;
 	
 	// Inyectamos el servicio
-	constructor( public afAuth: AngularFireAuth, private router: Router, private alumnosService: AlumnosService, private storage: Storage, private alertService: AlertService ) { }
+	constructor( public afAuth: AngularFireAuth, private router: Router, private alumnosService: AlumnosService, private profesoresService: ProfesorService, private storage: Storage, private alertService: AlertService ) { }
 	
 	// Función para Iniciar Sesión
 	iniciarSesion( correo: string, contrasena: string ) {
@@ -85,6 +86,8 @@ export class AuthService {
 
 		} else if ( this.rol === ROLES.PROFESOR ) {
 
+			return this.consultarDatosProfesor();
+			
 		} else if ( this.rol === ROLES.ALUMNO ) {
 			
 			return this.consultarDatosAlumno();
@@ -96,7 +99,7 @@ export class AuthService {
 	consultarDatosAlumno(): Promise<boolean> {
 		return new Promise( (resolve, reject) => {
 
-			this.alumnosService.getAlumnoPorMatricula( this.usuario.email.split('@')[0] ).toPromise().then( respuesta => {
+			this.alumnosService.getAlumnoPorMatricula( this.usuario.email.split('@')[0].toUpperCase() ).toPromise().then( respuesta => {
 				console.log(respuesta);
 				this.alumno = new AlumnoModel(respuesta.alumno);
 				return this.alumnosService.getAsignacionesDeAlumno( this.alumno.matricula ).toPromise();
@@ -115,6 +118,23 @@ export class AuthService {
 					console.log(err);
 				}
 				return reject(err);
+			});
+		});
+	}
+
+	
+	consultarDatosProfesor(): Promise<boolean> {
+		return new Promise( (resolve, reject) => {
+			
+			this.profesoresService.getProfesorPorMatricula( this.usuario.email.split('@')[0].toUpperCase() ).toPromise().then( respuesta => {
+				console.log(respuesta);
+				if ( respuesta.ok ) {
+					this.profesor = new ProfesorModel(respuesta.profesor);
+					return resolve();
+				}
+			}).catch( err => {
+				// this.swalService.error('Error', err.error.message);
+				return reject();
 			});
 		});
 	}

@@ -19,6 +19,19 @@ export const ESTADOS_TICKET = {
 	CANCELADO: 5
 };
 
+export const ESTADOS_SOLICITUD = {
+	NUEVO: 1,
+	ACEPTADO: 2,
+	RECHAZADO: 3,
+	CANCELADO: 4
+};
+
+export const TIPOS_SOLICITUD = {
+	DE_PROFESOR: 1,
+	DE_ALUMNO: 2
+};
+
+
 export const ESTADOS_ENCUESTA = {
 	NO_DISPONIBLE: 0,
 	DISPONIBLE: 1,

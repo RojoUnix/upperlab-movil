@@ -1,10 +1,8 @@
 import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { from, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { AsignacionModel, AlumnoModel } from '../models/alumno.model';
 import { URL_SERVICIOS } from '../../environments/environment';
 
 @Injectable({
