@@ -2,38 +2,66 @@
 
 <ion-content padding id="principal">
 <!-- CHAT -->
-	<div *ngFor="let mensaje of chatService.ticketsMaster[ticketSeleccionado?.id]?.chat" style="margin-bottom: 40px;">
-		<ion-item *ngIf="matricula !== mensaje.matricula">
-			<!-- <div class="chat-img"><img [src]="mensaje.img" alt="user"></div> -->
-			<ion-label>
-				<p class="cajaUsuario">{{ mensaje.nombre }}:
+<!-- <h1>Conversación {{ ticketSeleccionado.titulo }} </h1> -->
+<div class="container" >
+		<div  *ngFor="let mensaje of chatService.ticketsMaster[ticketSeleccionado?.id]?.chat" style="margin-bottom: 40px;">
+			<div class="visita" *ngIf="matricula === mensaje.matricula">
+				<div class="messageContent">
 					{{ mensaje.mensaje }}
-				</p>
-				<small> {{ mensaje.timestamp | date:'medium' }} </small>
-			</ion-label>
-		</ion-item>
+				</div>
+				<div class="messageData">
+					<span class="sender">
+						{{ mensaje.nombre.split(' ')[0] }}
+					</span>
+					<span class="timestamp1">
+						{{ mensaje.timestamp | date:'medium' }}
+					</span>
+				</div>
+			</div>
+	
+			<div class="usuario" *ngIf="matricula !== mensaje.matricula">
+				<div class="messageData">
+					<span class="sender">
+						{{ mensaje.nombre.split(' ')[0] }}
+					</span>
+					<span class="timestamp2">
+						{{ mensaje.timestamp | date:'medium' }}
+					</span>
+				</div>
+				<div class="messageContent">
+					{{ mensaje.mensaje }}
+				</div>
+			</div>
+	
+			<!-- <div class="wolfBot" *ngIf="mensaje.nombre === 'Wolf Bot'">
+				<div class="messageData">
+					<span class="sender">
+						{{ mensaje.nombre.split(' ')[0] }}
+					</span>
+					<span class="timestamp">
+						{{ mensaje.timestamp | date:'medium' }}
+					</span>
+				</div>
+				<div class="messageContent">
+					{{ mensaje.mensaje }}
+				</div>
+			</div> -->
+	
+		</div>	
+</div>
 
-		<ion-item *ngIf="matricula === mensaje.matricula">
-			<!-- <div class="chat-img"><img [src]="mensaje.img" alt="user"></div> -->
-			<ion-label>
-				<p class="cajaVisita">{{ mensaje.nombre }}
-					{{ mensaje.mensaje }}
-				</p>
-				<small style="position: right;"> {{ mensaje.timestamp | date:'medium' }} </small>
-			</ion-label>
-		</ion-item>
-	</div>
-	
-	<!-- Texto para enviar -->
-	<div>
-		<ion-item style="bottom: 0px; position: fixed;">
-			<form [formGroup]="mensajeForm">
-				<ion-input formControlName="mensaje" placeholder="Escribe tu mensaje aquí" expand="full"  (keyup.enter)="enviarMensaje()"></ion-input>
-			</form>
-		</ion-item>			
-		<ion-button type="submit" vertical="bottom" horizontal="end" style="right: 0; bottom: 0px; position: fixed;" (click)="enviarMensaje()">
-			<ion-icon name="send"></ion-icon>
-		</ion-button>
-	
-	</div>
+
 </ion-content>
+
+<!-- Texto para enviar -->
+<ion-footer>
+	<ion-buttons slot="end">
+	<form [formGroup]="mensajeForm">
+		<ion-input formControlName="mensaje" placeholder="Escribe tu mensaje aquí" expand="full"  (keyup.enter)="enviarMensaje()"></ion-input>
+	</form>
+		<ion-button type="submit" (click)="enviarMensaje()">
+				<ion-icon name="send"></ion-icon>
+		</ion-button>
+	</ion-buttons>
+	
+</ion-footer>

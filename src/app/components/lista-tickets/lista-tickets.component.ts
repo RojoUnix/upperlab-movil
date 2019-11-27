@@ -105,6 +105,7 @@ export class ListaTicketsComponent implements OnInit {
 		console.log('admin/tickets/conversacion',this.chatService.ticketsMaster[id].id);
 		this.router.navigate(['admin/tickets/conversacion',this.chatService.ticketsMaster[id].id]);
 	}
+	
 	verRutaAlumno(id){
 		console.log('ENTRA A LA FUNCIÓN PARA VER LA RUTA ALUMNO');
 		console.log(this.router.url + '/conversacion/' + this.chatService.ticketsMaster[id].id);

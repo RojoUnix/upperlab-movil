@@ -119,24 +119,24 @@ export class ConversacionPage implements OnInit {
 		
 		this.chatService.sendMessage( mensaje );
 		// this.chat.push( mensaje );
-		this.agregarMensajeUI( mensaje );
+		// this.agregarMensajeUI( mensaje );
 		
 		this.mensajeForm.reset();
 	}
 	
-	agregarMensajeUI( message: MensajeInterface ) {
-		this.chatService.ticketsMaster[message.sala].chat.push( message );
+	// agregarMensajeUI( message: MensajeInterface ) {
+	// 	this.chatService.ticketsMaster[message.sala].chat.push( message );
 		
-		console.log('Actualizando chat...');
-		if ( message.matricula !== MATRICULA_WOLFBOT ) {
+	// 	console.log('Actualizando chat...');
+	// 	if ( message.matricula !== MATRICULA_WOLFBOT ) {
 			
-			this.ticketsService.updateChat( this.chatService.ticketsMaster[message.sala] ).subscribe( respuesta => {
-				console.log(respuesta);
-			}, err => {
-				console.log(err);
-			});
-		}
-	}
+	// 		this.ticketsService.updateChat( this.chatService.ticketsMaster[message.sala] ).subscribe( respuesta => {
+	// 			console.log(respuesta);
+	// 		}, err => {
+	// 			console.log(err);
+	// 		});
+	// 	}
+	// }
 	
 	getTicket( id: string ): TicketModel {
 		for (const key in this.chatService.ticketsMaster) {

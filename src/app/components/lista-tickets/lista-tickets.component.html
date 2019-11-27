@@ -2,20 +2,33 @@
 	<div *ngFor="let id of objectKeys(this.chatService.ticketsMaster), let i = index">
 		<ion-card>
 			<ion-card-content>
-				<ion-card-title>{{ i+1 }} - {{ chatService.ticketsMaster[id].titulo }}
-					<br>
-					<small> ID Ticket: {{ chatService.ticketsMaster[id].id }}</small></ion-card-title>
-					<ion-card-subtitle>{{ chatService.ticketsMaster[id].descripcion }}</ion-card-subtitle>
-					<ion-label>{{ chatService.ticketsMaster[id].laboratorio | uppercase }}</ion-label>
-					<ion-label>{{ chatService.ticketsMaster[id].equipo.nombre | uppercase }}</ion-label>
-					<ion-label>{{ chatService.ticketsMaster[id].urgencia }}</ion-label>
-					<br>
-					<ion-label> {{ chatService.ticketsMaster[id].timestamp }} </ion-label>
-					<ion-button [color]=" esAdmin ? 'danger' : 'tertiary'" [routerLink]="['conversacion', chatService.ticketsMaster[id].id]">
-						<ion-icon name="chatboxes"></ion-icon>
-					</ion-button>
+					<ion-card-title>{{ i+1 }} - {{ chatService.ticketsMaster[id].titulo }}
+						<br>
+						<small> ID Ticket: {{ chatService.ticketsMaster[id].id }}</small></ion-card-title>
+						<ion-card-subtitle>{{ chatService.ticketsMaster[id].descripcion }}</ion-card-subtitle>
+						<ion-label>{{ chatService.ticketsMaster[id].laboratorio | uppercase }}</ion-label>
+						<ion-label>{{ chatService.ticketsMaster[id].equipo.nombre | uppercase }}</ion-label>
+						<br>
+						<ion-label>{{ chatService.ticketsMaster[id].urgencia.titulo }}</ion-label>
+						<br>
+						<ion-label> {{ chatService.ticketsMaster[id].timestamp }} </ion-label>
+						<ion-button [color]=" esAdmin ? 'danger' : 'tertiary'" [routerLink]="['conversacion', chatService.ticketsMaster[id].id]">
+							<ion-icon name="chatboxes"></ion-icon>
+						</ion-button>
 				</ion-card-content>
-				<div style="background-color: red;">
+				<div style="background-color: red;" *ngIf="chatService.ticketsMaster[id].urgencia.titulo === 'ALTA'">
+					<br><!-- Color de fondo -->
+				</div>
+				<div style="background-color: orange;" *ngIf="chatService.ticketsMaster[id].urgencia.titulo === 'EN PROCESO'">
+					<br><!-- Color de fondo -->
+				</div>
+				<div style="background-color: yellow;" *ngIf="chatService.ticketsMaster[id].urgencia.titulo === 'MEDIA'">
+					<br><!-- Color de fondo -->
+				</div>
+				<div style="background-color: green;" *ngIf="chatService.ticketsMaster[id].urgencia.titulo === 'BAJA'">
+					<br><!-- Color de fondo -->
+				</div>
+				<div style="background-color: blue;" *ngIf="chatService.ticketsMaster[id].urgencia.titulo === 'NUEVO'">
 					<br><!-- Color de fondo -->
 				</div>
 			</ion-card>

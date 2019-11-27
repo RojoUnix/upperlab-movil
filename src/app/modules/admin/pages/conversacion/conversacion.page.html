@@ -5,11 +5,9 @@
 	<div *ngFor="let mensaje of chatService.ticketsMaster[ticketSeleccionado?.id]?.chat" style="margin-bottom: 40px;">
 		<ion-item *ngIf="matricula !== mensaje.matricula">
 			<!-- <div class="chat-img"><img [src]="mensaje.img" alt="user"></div> -->
-			<ion-label>
-				<p class="cajaUsuario">{{ mensaje.nombre }}:
+			<ion-label class="cajaUsuario">{{ mensaje.nombre.split(' ')[0] }}:
 					{{ mensaje.mensaje }}
-				</p>
-				<small> {{ mensaje.timestamp | date:'medium' }} </small>
+				<!-- <small> {{ mensaje.timestamp | date:'medium' }} </small> -->
 			</ion-label>
 		</ion-item>
 

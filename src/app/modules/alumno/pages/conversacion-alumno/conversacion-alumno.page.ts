@@ -1,5 +1,5 @@
 import { MensajeInterface } from './../../../../models/ticket.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TicketModel, UsuarioInterface } from '../../../../models/ticket.model';
 import { Subscription, Subject } from 'rxjs';
@@ -15,6 +15,7 @@ import { MATRICULA_WOLFBOT } from '../../../../config/config';
   styleUrls: ['./conversacion-alumno.page.scss'],
 })
 export class ConversacionAlumnoPage implements OnInit {
+	@ViewChild("contenedor", {static:false}) contenedor: any;
 
   	chat: MensajeInterface[] = [];
 	objectKeys = Object.keys;
@@ -39,7 +40,7 @@ export class ConversacionAlumnoPage implements OnInit {
 	
 	formularioEnviado$: Subject<boolean> = new Subject();
 	
-	constructor( public ticketsService: TicketsService, public authService: AuthService, public chatService: ChatService, public activatedRoute: ActivatedRoute ) { }
+	constructor( public ticketsService: TicketsService, public authService: AuthService, public chatService: ChatService, public activatedRoute: ActivatedRoute, public _zone: NgZone) { }
 	
 	async ngOnInit() {
 
@@ -48,11 +49,6 @@ export class ConversacionAlumnoPage implements OnInit {
 		});
 
 		console.log('ENTRO A CONVERSACION - ALUMNO');
-		
-		// this.esSuperadmin = this.authService.isSuperadmin();
-		// this.esAdmin = this.authService.isAdmin();
-		// this.esAlumno = this.authService.isAlumno();
-		// this.esProfesor = this.authService.isProfesor();
 
 		if ( !this.authService.alumno ) {
 			try {
@@ -73,10 +69,12 @@ export class ConversacionAlumnoPage implements OnInit {
 		
 		this.matricula = this.authService.usuario.email.split('@')[0].toUpperCase();
 		console.log('LA MATRICULA ES:', this.matricula);
+
 		
 	}
-	
-	ngAfterViewInit(): void {
+
+
+	ngAfterViewInit() {
 		// this.scrollBottom(true);
 	}
 
@@ -98,9 +96,71 @@ export class ConversacionAlumnoPage implements OnInit {
 		this.ticketSeleccionado = this.chatService.ticketsMaster[this.idTicket];
 		this.ticketSeleccionado.chat.forEach( mensaje => {
 			this.chat.push( mensaje);
+
+			// setTimeout( () => {
+			// 	this.scrollBottom(true);
+			// }, 40);
 		});
 	}
+
+	// scrollToBottom(){
+	// 	if(this.contenedor._scroll){
+	// 		let fin = document.getElementById('end').offsetTop;
+	// 		this.contenedor.scrollTo(0, fin, 300);
+	// 	}
+	// }
+
+
+	// scrollBottom( forzado: boolean = false ) {
+		
+	// 	// selectors
+	// 	const newMessage: any = this.contenedor.nativeElement.lastElementChild;
+	// 	// console.log('contenedor');
+	// 	// console.log(this.contenedor);
+	// 	// console.log('contenedor.nativeElement');
+	// 	// console.log(this.contenedor.nativeElement);
+		
+	// 	// heights
+	// 	// const newMessageHeight = newMessage.innerHeight();
+	// 	// console.log('newMessage: ');
+	// 	// console.log(newMessage);
+	// 	const newMessageHeight = newMessage.clientHeight;
+		
+	// 	// const clientHeight = contenedor.prop('clientHeight');
+	// 	const clientHeight = this.contenedor.nativeElement.clientHeight;
+		
+	// 	// // const scrollTop = contenedor.prop('scrollTop');
+	// 	const scrollTop = this.contenedor.nativeElement.scrollTop;
+		
+	// 	// // const scrollHeight = contenedor.prop('scrollHeight');
+	// 	const scrollHeight = this.contenedor.nativeElement.scrollHeight;
+		
+	// 	// const lastMessageHeight = newMessage.prev().innerHeight() || 0;
+	// 	let lastMessageHeight;
+	// 	if ( !!newMessage.previousSibling ) {
+	// 		// console.log('No es null:');
+	// 		// console.log(newMessage.previousSibling);
+	// 		lastMessageHeight = newMessage.previousSibling.clientHeight;
+	// 	} else {
+	// 		lastMessageHeight = 0;
+	// 	}
+
+	// 	// console.log('clientHeight: ', clientHeight);
+	// 	// console.log('scrollTop', scrollTop);
+	// 	// console.log('lastMessageHeight', lastMessageHeight);
+	// 	// console.log('newMessageHeight', newMessageHeight);
+	// 	// console.log('scrollHeight', scrollHeight);
+	// 	// console.log('Suma: ', clientHeight + scrollTop + newMessageHeight + lastMessageHeight);
+	// 	// console.log('Resultado: ', clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight);
 	
+	// 	if ( forzado ) {
+	// 		this.contenedor.nativeElement.scrollTop = scrollHeight;
+	// 	} else if ( clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+	// 		// console.log('Entró');
+	// 		this.contenedor.nativeElement.scrollTop = scrollHeight;
+	// 	}
+	// }
+
 	enviarMensaje(){
 		console.log('FUNCION ENVIAR MENSAJE');
 		console.log('Enviando mensaje...');
@@ -122,14 +182,21 @@ export class ConversacionAlumnoPage implements OnInit {
 			sala: this.ticketSeleccionado.id
 		};
 		
-		console.log(mensaje);
-		
-		this.chatService.sendMessage( mensaje );
-		// this.chat.push( mensaje );
-		this.agregarMensajeUI( mensaje );
-		
+		if(mensaje.mensaje !== null){
+			console.log(mensaje);
+			this.chatService.sendMessage( mensaje );
+			// this.chat.push( mensaje );
+			this.agregarMensajeUI( mensaje );
+		}else{
+			console.log('NO hay mensaje');
+		}
 		this.mensajeForm.reset();
+
+		// setTimeout( () => {
+		// 	this.scrollBottom();
+		// }, 40);
 	}
+
 	
 	agregarMensajeUI( message: MensajeInterface ) {
 		this.chatService.ticketsMaster[message.sala].chat.push( message );

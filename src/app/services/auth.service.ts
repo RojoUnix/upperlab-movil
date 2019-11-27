@@ -100,7 +100,7 @@ export class AuthService {
 		return new Promise( (resolve, reject) => {
 
 			this.alumnosService.getAlumnoPorMatricula( this.usuario.email.split('@')[0].toUpperCase() ).toPromise().then( respuesta => {
-				console.log(respuesta);
+				// console.log(respuesta);
 				this.alumno = new AlumnoModel(respuesta.alumno);
 				return this.alumnosService.getAsignacionesDeAlumno( this.alumno.matricula ).toPromise();
 			}).then( (respuesta) => {
