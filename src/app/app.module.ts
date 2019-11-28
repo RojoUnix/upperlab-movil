@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+
+// AngularFire
 import { AngularFireModule } from '@angular/fire';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -22,6 +24,8 @@ import { AdminPageModule } from './modules/admin/admin.module';
 import { AlumnoPageModule } from './modules/alumno/alumno.module';
 import { ProfesorPageModule } from './modules/profesor/profesor.module';
 
+import { Firebase } from '@ionic-native/firebase/ngx';
+import { FcmService } from './services/fcm.service';
 
 @NgModule({
 	declarations: [
@@ -46,12 +50,15 @@ import { ProfesorPageModule } from './modules/profesor/profesor.module';
 		FormsModule
 	],
 	providers: [
+		
 		ChatService,
 		StatusBar,
 		SplashScreen,
 		ComponentsModule,
 		BarcodeScanner,
-		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+		Firebase,
+		FcmService
 	],
 	bootstrap: [AppComponent]
 })

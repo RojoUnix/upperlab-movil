@@ -44,7 +44,7 @@ export class AuthService {
 		});
 	}
 	
-	borrarDatosUsuario(){
+	borrarDatosUsuario() {
 		this.storage.remove('token');
 		this.usuario = null;
 		if ( this.rol === ROLES.ADMINISTRADOR || this.rol === ROLES.SUPERADMINISTRADOR ) {
@@ -60,9 +60,9 @@ export class AuthService {
 	valorNumericoRol( claims: any ) {
 		if ( !!claims.isAlumno ) {
 			return ROLES.ALUMNO;
-		} else if ( claims.isProfesor ){
+		} else if ( claims.isProfesor ) {
 			return ROLES.PROFESOR;
-		} else if ( claims.isAdmin ){
+		} else if ( claims.isAdmin ) {
 			return ROLES.ADMINISTRADOR;
 		} else {
 			return ROLES.SUPERADMINISTRADOR;
@@ -71,7 +71,7 @@ export class AuthService {
 	
 	// Función para cerrar sesión
 	cerrarSesion() {
-		this.afAuth.auth.signOut().then ( (val) =>{
+		this.afAuth.auth.signOut().then ( (val) => {
 			this.borrarDatosUsuario();
 			this.router.navigate(['login']);
 		}).catch( err => {
@@ -80,7 +80,7 @@ export class AuthService {
 		});
 	}
 
-	//Consultar datos del usuario
+	// Consultar datos del usuario
 	consultarDatosUsuario() {
 		if ( this.rol === ROLES.ADMINISTRADOR || this.rol === ROLES.SUPERADMINISTRADOR ) {
 
@@ -95,7 +95,7 @@ export class AuthService {
 		}
 	}
 
-	//Consultar Datos del Alumno
+	// Consultar Datos del Alumno
 	consultarDatosAlumno(): Promise<boolean> {
 		return new Promise( (resolve, reject) => {
 

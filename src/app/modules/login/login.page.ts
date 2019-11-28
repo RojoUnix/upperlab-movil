@@ -7,6 +7,10 @@ import { ROLES } from 'src/app/config/config';
 import { Storage } from '@ionic/storage';
 import { AlertService } from '../../services/alert.service';
 
+import { ToastController } from '@ionic/angular';
+import { tap } from 'rxjs/operators';
+import { FcmService } from '../../services/fcm.service';
+
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.page.html',
@@ -16,7 +20,7 @@ import { AlertService } from '../../services/alert.service';
 export class LoginPage implements OnInit {
 	public formulario: FormGroup;
 
-	constructor( public storage: Storage, private authServicio: AuthService, private router: Router, private alertService: AlertService ) {
+	constructor( public storage: Storage, private authServicio: AuthService, private router: Router, private alertService: AlertService, public fcm: FcmService, public toastCtrl: ToastController  ) {
 	}
 	
 	ngOnInit() {
@@ -28,6 +32,27 @@ export class LoginPage implements OnInit {
 			]),
 			contrasena: new FormControl('', Validators.required)
 		});
+
+
+		this.fcm.getToken();
+
+		this.fcm.listenToNotifications().pipe(
+			tap( msg => {
+				this.presentToast( msg );
+			})
+		);
+	}
+
+	async presentToast( msg: any ) {
+		const toast = await this.toastCtrl.create({
+			message: msg.body,
+			duration: 2000
+		});
+		toast.present();
+	}
+
+	ionViewDidLoad() {
+
 	}
 
 	// Formulario
