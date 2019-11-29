@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 // AngularFire
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -58,7 +59,8 @@ import { FcmService } from './services/fcm.service';
 		BarcodeScanner,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 		Firebase,
-		FcmService
+		FcmService,
+		AngularFirestore
 	],
 	bootstrap: [AppComponent]
 })

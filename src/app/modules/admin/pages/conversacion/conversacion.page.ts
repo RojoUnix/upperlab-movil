@@ -75,7 +75,7 @@ export class ConversacionPage implements OnInit {
 			if(respuesta.ok){
 				const ticketHolder: TicketModel[] = respuesta.tickets;
 				ticketHolder.forEach(ticket =>{
-					this.chatService.ticketsMaster[ticket.id] = new TicketModel (ticket);
+					this.chatService.ticketsMaster[ticket.id] = new TicketModel(ticket);
 				});
 				
 				this.entrarASalasDeTickets();

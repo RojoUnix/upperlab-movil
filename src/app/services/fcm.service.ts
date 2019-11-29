@@ -35,9 +35,10 @@ export class FcmService {
 		
 		const devicesRef = this.afs.collection('fcmTokens');
 		
+		const matricula = this.authService.usuario.email.split('@')[0].toUpperCase();
 		const docData = { 
-			token,
-			userId: this.authService.usuario.uid
+			matricula,
+			uid: this.authService.usuario.uid
 		};
 		
 		return devicesRef.doc(token).set(docData);

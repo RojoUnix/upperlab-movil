@@ -32,7 +32,7 @@ export class AsistenciaQrPage implements OnInit {
 			await this.authService.consultarDatosUsuario();
 		}
 
-		let alumno = this.authService.alumno;
+		const alumno = this.authService.alumno;
 		
 		console.log('Escanenando');
 		

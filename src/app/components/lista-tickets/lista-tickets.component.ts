@@ -24,7 +24,7 @@ export class ListaTicketsComponent implements OnInit {
 	objectKeys = Object.keys;
 	tickets: TicketModel[] = [];
 
-	constructor( public authService: AuthService, public clasificacionesService: ClasificacionesService,public ticketService: TicketsService, public chatService:ChatService, public router: Router ) { }
+	constructor( public authService: AuthService, public clasificacionesService: ClasificacionesService, public ticketService: TicketsService, public chatService: ChatService, public router: Router ) { }
 	ngOnInit() {		
 		console.log('LISTA DE TICKETS');
 		console.log('USUARIO: ', this.authService.usuario.displayName);
@@ -32,17 +32,18 @@ export class ListaTicketsComponent implements OnInit {
 		
 		this.consultarClasificaciones();
 
-		if(this.authService.rol == ROLES.ALUMNO){
+		if ( this.authService.isAlumno() ) {
+			// Consultando tickets para Alumno o Profesor
 			console.log('Entro Alumno');
-			this.esAlumno= true;
+			this.esAlumno = true;
 			this.getTicketsMatricula();
 			
-		} else if(this.authService.rol == ROLES.PROFESOR){
-			//Consultando tickets para Alumno o Profesor
+		} else if ( this.authService.isProfesor() ) {
+			// Consultando tickets para Alumno o Profesor
 			console.log('Entro Profesor');
 			this.esProfesor = true;
 			this.getTicketsMatricula();
-		}else{
+		} else if ( this.authService.isAdmin() ) {
 			// Consultando tickets para Administrador (Todos los tickets)
 			this.esAdmin = true;
 			this.getTicketsAdmin();
@@ -51,13 +52,13 @@ export class ListaTicketsComponent implements OnInit {
 		console.log('Ticket master: ', this.chatService.ticketsMaster);
 	}
 	
-	getTicketsMatricula(){
+	getTicketsMatricula() {
 		this.ticketService.getTicketsPorMatricula( this.authService.usuario.email.split('@')[0] ).subscribe( respuesta => {
-			if(respuesta.ok){
+			if ( respuesta.ok ) {
 				const ticketHolder: TicketModel[] = respuesta.tickets;
-				ticketHolder.forEach(ticket =>{
+				ticketHolder.forEach( ticket => {
 					this.chatService.ticketsMaster[ticket.id] = new TicketModel (ticket);
-				})
+				});
 			}
 		});
 	}
@@ -87,26 +88,26 @@ export class ListaTicketsComponent implements OnInit {
 	}
 
 
-	getTicketsAdmin(){
+	getTicketsAdmin() {
 		this.ticketService.getTickets().subscribe(respuesta => {
 			console.log('respuesta');
 			console.log(respuesta);
-			if(respuesta.ok){
+			if ( respuesta.ok ) {
 				const ticketHolder: TicketModel[] = respuesta.tickets;
-				ticketHolder.forEach(ticket =>{
-					this.chatService.ticketsMaster[ticket.id] = new TicketModel (ticket);
-				})
+				ticketHolder.forEach( ticket => {
+					this.chatService.ticketsMaster[ticket.id] = new TicketModel(ticket);
+				});
 			}
 		});
 	}
 
-	verRutaAdmin(id){
+	verRutaAdmin( id ) {
 		console.log('ENTRA A LA FUNCIÓN PARA VER LA RUTA ADMINISTRADOR');
-		console.log('admin/tickets/conversacion',this.chatService.ticketsMaster[id].id);
-		this.router.navigate(['admin/tickets/conversacion',this.chatService.ticketsMaster[id].id]);
+		console.log('admin/tickets/conversacion', this.chatService.ticketsMaster[id].id);
+		this.router.navigate(['admin/tickets/conversacion', this.chatService.ticketsMaster[id].id]);
 	}
 	
-	verRutaAlumno(id){
+	verRutaAlumno( id ) {
 		console.log('ENTRA A LA FUNCIÓN PARA VER LA RUTA ALUMNO');
 		console.log(this.router.url + '/conversacion/' + this.chatService.ticketsMaster[id].id);
 		// this.router.navigate([this.router.url + '/conversacion/' + this.chatService.ticketsMaster[id].id]);
