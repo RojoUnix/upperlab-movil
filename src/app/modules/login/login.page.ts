@@ -40,19 +40,22 @@ export class LoginPage implements OnInit {
 			this.authServicio.usuario = userCredential.user;
 		
 						
-			userCredential.user.getIdTokenResult(true).then( idTokenResult =>{				
+			userCredential.user.getIdTokenResult(true).then( async idTokenResult => {				
 				const rol = this.authServicio.valorNumericoRol( idTokenResult.claims );
 				this.authServicio.rol = rol;
 
 				// Guardar token
-				this.storage.set('token', idTokenResult.token);
+				console.log('Guardando token...');
+				console.log(idTokenResult.token);
+				await this.storage.set('token', idTokenResult.token);
+				console.log('Guardado');
 				
 			
-				if( rol === ROLES.SUPERADMINISTRADOR ){
+				if ( rol === ROLES.SUPERADMINISTRADOR ) {
 					this.alertService.mostrarError('Módulo no implementado', 'El módulo de superadmin aún no está implementado.');
-				} else if ( rol === ROLES.ADMINISTRADOR ){
-					this.router.navigate(['tickets']);
-				} else if (rol === ROLES.PROFESOR){
+				} else if ( rol === ROLES.ADMINISTRADOR ) {
+					this.router.navigate(['/admin/tickets']);
+				} else if (rol === ROLES.PROFESOR) {
 					this.router.navigate(['profesor']);
 				} else {
 					// Ejemplo de envió http

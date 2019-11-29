@@ -1,15 +1,18 @@
-<app-header titulo="Registrar Asistencia QR">
-</app-header>
-<app-menu></app-menu>
+<app-header titulo="Registrar Asistencia QR"></app-header>
 
-<ion-content id="principal" padding>
-	<div class="contenedor">
-		<ion-button expand="full"
-					fill="outline"
-					shape="round"
-					(click)="scan()">
-				Registrar Asistencia		
-		</ion-button>
-	</div>
+<ion-content color="morado">
+
+	<ion-grid>
+		<ion-row class="ion-justify-content-center ion-align-items-center">
+			<ion-col>
+				<div>
+					<ion-button shape="round" (click)="scan()">
+						Registrar Asistencia
+					</ion-button>
+				</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 
 </ion-content>
+	

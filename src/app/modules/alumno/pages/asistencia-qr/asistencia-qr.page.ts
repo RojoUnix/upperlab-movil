@@ -21,7 +21,7 @@ export class AsistenciaQrPage implements OnInit {
 	
 	// Entrará y lanzara la funcion de Scan
 	ionViewWillEnter() {
-		this.scan();
+		// this.scan();
 	}
 	
 	

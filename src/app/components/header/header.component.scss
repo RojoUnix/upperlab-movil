@@ -11,3 +11,15 @@ ion-toolbar {
 	--padding-start: 4px;
 	--padding-top: 4px;
 }
+
+// Clase 'title title-md' para centrar el titúlo del toolbar.
+.title.title-md {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    height: 100%;
+    width: 70%;
+    text-align: center;
+}
+

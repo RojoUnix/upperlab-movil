@@ -1,9 +1,9 @@
-<app-header titulo="Conversación"></app-header>
+<app-header titulo="Chat"></app-header>
 
-<ion-content padding id="principal">
-<!-- CHAT -->
-<!-- <h1>Conversación {{ ticketSeleccionado.titulo }} </h1> -->
-<div class="container" >
+<ion-content padding>
+	<!-- CHAT -->
+	<!-- <h1>Conversación {{ ticketSeleccionado.titulo }} </h1> -->
+	<div class="container" >
 		<div  *ngFor="let mensaje of chatService.ticketsMaster[ticketSeleccionado?.id]?.chat" style="margin-bottom: 40px;">
 			<div class="visita" *ngIf="matricula === mensaje.matricula">
 				<div class="messageContent">
@@ -48,10 +48,10 @@
 			</div> -->
 	
 		</div>	
-</div>
-
+	</div>
 
 </ion-content>
+
 
 <!-- Texto para enviar -->
 <ion-footer>

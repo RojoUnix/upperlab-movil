@@ -1,14 +1,11 @@
-<!-- <ion-header no-border id="header"> -->
-	<ion-toolbar padding>
-		<ion-buttons>
-			<!-- <ion-button slot="start" menu="principal"> -->
-				<ion-icon slot="start" menu="principal" name="menu"></ion-icon>
-			<!-- </ion-button> -->
-			
-			<ion-title text-capitalize> {{ titulo }} </ion-title>
+<ion-header>
+	<ion-toolbar>
+		
+		<ion-buttons slot="start">
+			<ion-menu-button color="light" menu="first"></ion-menu-button>
 		</ion-buttons>
+		
+		<ion-title class="ion-text-capitalize"> {{ titulo }} </ion-title>
 
 	</ion-toolbar>
-<!-- </ion-header>	 -->
-
-<app-menu></app-menu>
+</ion-header>	

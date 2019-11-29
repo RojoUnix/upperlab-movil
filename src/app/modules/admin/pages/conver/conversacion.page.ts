@@ -1,5 +1,5 @@
 import { MensajeInterface } from './../../../../models/ticket.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TicketModel, UsuarioInterface } from '../../../../models/ticket.model';
 import { Subscription, Subject } from 'rxjs';
@@ -14,9 +14,10 @@ import { ActivatedRoute } from '@angular/router';
 	templateUrl: './conversacion.page.html',
 	styleUrls: ['./conversacion.page.scss'],
 })
-export class ConversacionPage implements OnInit {
+export class ConversacionPage implements OnInit, OnDestroy {
 	
 	chat: MensajeInterface[] = [];
+	// tslint:disable-next-line: typedef
 	objectKeys = Object.keys;
 	public ticketForm: FormGroup;
 	public mensajeForm: FormGroup;
@@ -28,14 +29,9 @@ export class ConversacionPage implements OnInit {
 	// chatContainer: ChatContainerComponent;
 	getMessagesSub: Subscription;
 	reconnectSub: Subscription;
-	esSuperadmin: boolean;
-	esAdmin: boolean;
-	esAlumno: boolean;
-	esProfesor: boolean;
-	tickets: TicketModel[] = [];
+	
 	usuarios: UsuarioInterface[] = [];
 	usuarioSeleccionado: UsuarioInterface;
-	matriculaDeUsuario: any;
 	
 	formularioEnviado$: Subject<boolean> = new Subject();
 	
@@ -43,7 +39,10 @@ export class ConversacionPage implements OnInit {
 	
 	async ngOnInit() {
 		
+		this.idTicket = this.activatedRoute.snapshot.paramMap.get('idTicket');
 		this.matricula = this.authService.usuario.email.split('@')[0].toUpperCase();
+		console.log('LA MATRICULA ES:', this.matricula);
+
 		this.ticketForm = new FormGroup({
 			ticket: new FormControl('', Validators.required)
 		});
@@ -62,19 +61,14 @@ export class ConversacionPage implements OnInit {
 			this.mostrarMensajes();
 		}
 		
-		console.log('LA MATRICULA ES:', this.matricula);
-		this.idTicket= this.activatedRoute.snapshot.paramMap.get('idTicket');
-	}
-	
-	ngAfterViewInit(): void {
-		// this.scrollBottom(true);
+		
 	}
 
-	getTicketsAdmin(){
+	getTicketsAdmin() {
 		this.ticketsService.getTickets().subscribe(respuesta => {
-			if(respuesta.ok){
+			if ( respuesta.ok ) {
 				const ticketHolder: TicketModel[] = respuesta.tickets;
-				ticketHolder.forEach(ticket =>{
+				ticketHolder.forEach(ticket => {
 					this.chatService.ticketsMaster[ticket.id] = new TicketModel(ticket);
 				});
 				
@@ -87,6 +81,8 @@ export class ConversacionPage implements OnInit {
 	
 	mostrarMensajes(): void {
 		console.log('Mostrando mensajes...');
+		console.log(this.chatService.ticketsMaster);
+		console.log('idTicket', this.idTicket);
 		this.ticketSeleccionado = this.chatService.ticketsMaster[this.idTicket];
 		
 		this.ticketSeleccionado.chat.forEach( mensaje => {
@@ -94,17 +90,10 @@ export class ConversacionPage implements OnInit {
 		});
 	}
 	
-	enviarMensaje(){
+	enviarMensaje() {
 		console.log('FUNCION ENVIAR MENSAJE');
 		console.log('Enviando mensaje...');
-		
-		// HARDCODED LINES:
-		// let url: string;
-		// if ( this.authService.isAdmin() ) {
-		// 	url = 'assets/images/users/1.jpg';
-		// } else {
-		// 	url = 'assets/images/users/2.jpg';
-		// }
+
 		
 		const mensaje: MensajeInterface = {
 			matricula: this.matricula,

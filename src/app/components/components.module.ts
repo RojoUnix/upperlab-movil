@@ -30,7 +30,7 @@ import { EquipoEstadoPipe } from './pipes/equipo-estado.pipe';
 		SolicitudesComponent,
 		SimpleSelectComponent
 	],
-	providers:[
+	providers: [
 		
 	],
 
@@ -39,9 +39,9 @@ import { EquipoEstadoPipe } from './pipes/equipo-estado.pipe';
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
-		RouterModule,
+		RouterModule
 	],
-	exports:[
+	exports: [
 		CamelToStringPipe,
 		DotdotdotPipe,
 		EquipoEstadoPipe,

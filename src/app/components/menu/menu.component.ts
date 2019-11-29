@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ROLES } from '../../config/config';
+import { Observable } from 'rxjs';
+import { MenuOption } from '../../shared/interfaces/interfaces';
+import { DataService } from '../../services/data.service';
 
 @Component({
 	selector: 'app-menu',
@@ -9,50 +12,19 @@ import { ROLES } from '../../config/config';
 })
 export class MenuComponent implements OnInit {
 	usuario: number;
+	nombreDeUsuario: string;
+	correoDeUsuario: string;
 
-	opciones: any;
-	constructor( public authService: AuthService ) { }
+	opciones: Observable<MenuOption[]>;
+
+	constructor( public authService: AuthService, private dataService: DataService ) { }
 
 	ngOnInit() {
-		// TODO: Elegir opciones a mostrar segun el rol del usuario
-		if(this.authService.isAlumno()){
-			console.log('Entro Alumno');
-			this.opciones = [
-				{
-					nombre: 'Asistencia',
-					icono: 'hammer',
-					link: ['/alumno/asistencia']
-				},
-				{
-					nombre: 'Ticket',
-					icono: 'hammer',
-					link: ['/alumno/tickets']
-				}
-			];
-			
-		} else if(this.authService.isProfesor()){
-			console.log('Entro Profesor');
-			this.opciones = [
-				{
-					nombre: 'Ticket',
-					icono: 'hammer',
-					link: ['/alumno/tickets']
-				},
-				{
-					nombre: 'Solicitud de laboratorios',
-					icono: 'hammer',
-					link: ['/alumno/solicitud']
-				}
-			];
-		} else if(this.authService.isAdmin()) {
-			this.opciones = [
-				{
-					nombre: 'Ticket',
-					icono: 'hammer',
-					link: ['/alumno/tickets']
-				}
-			];
-		}
+		// Elegir opciones a mostrar segun el rol del usuario
+		this.opciones = this.dataService.getMenu( this.authService.rol );
+	
+		this.nombreDeUsuario = this.authService.usuario.displayName;
+		this.correoDeUsuario = this.authService.usuario.email;
 	}
 	
 }

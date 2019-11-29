@@ -1,0 +1,28 @@
+#contenedor {
+	padding: 0px 12px 0px 12px;
+}
+
+ion-grid, ion-grid > ion-row > ion-col {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+ion-grid > ion-row > ion-col > ion-icon {
+	margin-right: 4px;
+}
+
+ion-grid > ion-row > ion-col > ion-label {
+	margin-right: 8px;
+}
+
+ion-card {
+	margin-bottom: 16px;
+}
+
+ion-card-content {
+	padding-bottom: 4px;
+}
+
+.chat-icon {
+	margin-right: 4px;
+}

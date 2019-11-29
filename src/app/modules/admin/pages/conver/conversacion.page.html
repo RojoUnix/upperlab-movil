@@ -1,6 +1,6 @@
-<app-menu></app-menu>
+<app-header titulo="Chat"></app-header>
 
-<ion-content padding id="principal">
+<ion-content padding>
 <!-- CHAT -->
 	<div *ngFor="let mensaje of chatService.ticketsMaster[ticketSeleccionado?.id]?.chat" style="margin-bottom: 40px;">
 		<ion-item *ngIf="matricula !== mensaje.matricula">

@@ -24,7 +24,7 @@ import { FormsModule } from '@angular/forms';
 		AlumnoRoutingModule,
 		ComponentsModule
 	],
-	providers:[]
+	providers: []
 	
 })
 export class AlumnoPageModule {}

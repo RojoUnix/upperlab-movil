@@ -1,0 +1,12 @@
+[
+	{
+		"nombre": "Tickets",
+		"icono": "ticket.svg",
+		"link": ["/profesor/tickets"]
+	},
+	{
+		"nombre": "Solicitud de laboratorios",
+		"icono": "outbox.svg",
+		"link": ["/profesor/solicitud"]
+	}
+]

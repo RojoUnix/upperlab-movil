@@ -17,11 +17,13 @@ export class TicketsService {
 	constructor( private http: HttpClient, private storage: Storage ) { }
 	
 
-	getTickets(): Observable<any>{
-		return from(this.storage.get('token')).pipe( mergeMap (token =>{
-			const url = this.URL_TICKETS + `/?token=${ token }`;
+	getTickets(): Observable<any> {
+		console.log('Obteniendo tickets y token...');
+		return from(this.storage.get('token')).pipe( mergeMap (token => {
+			console.log('token', token);
+			const url = this.URL_TICKETS + `?token=${ token }`;
 			return this.http.get(url);
-		}))
+		}));
 	}
 	
 
@@ -32,7 +34,7 @@ export class TicketsService {
 		}));
 	}	
 
-	addTicket( ticket ): Observable <any> {
+	addTicket( ticket: TicketModel ): Observable <any> {
 		console.log('En el Servicio del Ticket');
 		console.log('Ticket ', ticket);
 		return from( this.storage.get('token') ).pipe( mergeMap ( token => {
@@ -56,7 +58,7 @@ export class TicketsService {
 
 	updateChat( ticket: TicketModel ): Observable<any> {
 		const ticketAux = new TicketModel( ticket );
-		return from(this.storage.get('token')).pipe(mergeMap( token =>{
+		return from(this.storage.get('token')).pipe(mergeMap( token => {
 			const url = this.URL_TICKETS + `/${ ticket.id }/chat?token=${ token }`;
 			ticketAux.chat = ticketAux.chat.filter( mensaje => mensaje.matricula !== MATRICULA_WOLFBOT );
 			return this.http.put(url, { ticket: ticketAux});

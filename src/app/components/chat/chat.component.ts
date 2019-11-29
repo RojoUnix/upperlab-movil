@@ -1,6 +1,6 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MensajeInterface, TicketModel, UsuarioInterface } from '../../models/ticket.model';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { ChatService } from '../../services/chat.service';
@@ -13,16 +13,15 @@ import { MATRICULA_WOLFBOT } from '../../config/config';
 	templateUrl: './chat.component.html',
 	styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit, AfterViewInit  {	
-	
-	// @ViewChild('divChatbox', {static: false}) private divChatbox: ElementRef;
-	
-	// Mensajes ('chat') del ticket seleccionado.
-	chat: MensajeInterface[] = [];
+export class ChatComponent implements OnInit, OnDestroy  {	
+	@ViewChild('contenedor', { static: false }) contenedor: any;
+
+  	chat: MensajeInterface[] = [];
+	// tslint:disable-next-line: typedef
 	objectKeys = Object.keys;
-	public ticketForm: FormGroup;
-	public mensajeForm: FormGroup;
-	public mensaje: FormControl;
+	// public ticketForm: FormGroup;
+	mensajeForm: FormGroup;
+	mensaje: FormControl;
 	ticketSeleccionado: TicketModel;
 	ticketsDelUsuario: TicketModel[] = [];
 	matricula: string;
@@ -37,72 +36,89 @@ export class ChatComponent implements OnInit, AfterViewInit  {
 	tickets: TicketModel[] = [];
 	usuarios: UsuarioInterface[] = [];
 	usuarioSeleccionado: UsuarioInterface;
-	matriculaDeUsuario: any;
+	// matriculaDeUsuario: any;
 	
 	formularioEnviado$: Subject<boolean> = new Subject();
 	
 	constructor( public ticketsService: TicketsService, public authService: AuthService, public chatService: ChatService, public activatedRoute: ActivatedRoute ) { }
 	
 	async ngOnInit() {
-		this.entrarASalasDeTickets();
-		
-		this.esSuperadmin = this.authService.isSuperadmin();
-		this.esAdmin = this.authService.isAdmin();
-		this.esAlumno = this.authService.isAlumno();
-		this.esProfesor = this.authService.isProfesor();
 
-		if ( this.esAdmin || this.esSuperadmin ) {
-			// this.consultarTicketsParaAdmin();
-		} else if ( this.esAlumno || this.esProfesor ) {
-			if ( !this.authService.alumno && !this.authService.profesor ) {
-				await this.authService.consultarDatosUsuario();
-			}
-			if ( this.esAlumno ) {
-				this.matriculaDeUsuario = this.authService.alumno.matricula;
-			} else {
-				this.matriculaDeUsuario = this.authService.profesor.matricula;
-			}
-		}
+		this.idTicket = this.activatedRoute.snapshot.paramMap.get('idTicket');
 		this.matricula = this.authService.usuario.email.split('@')[0].toUpperCase();
-		this.ticketForm = new FormGroup({
-			ticket: new FormControl('', Validators.required)
-		});
-		
+		console.log('LA MATRICULA ES:', this.matricula);
+
 		this.mensajeForm = new FormGroup({
 			mensaje: new FormControl()
 		});
+
+		if ( this.authService.isAlumno() && !this.authService.alumno ) {
+			try {
+				await this.authService.consultarDatosUsuario();
+			} catch ( e ) { }
+		}
+
+
+		console.log('keys length');
+		console.log(Object.keys(this.chatService.ticketsMaster).length);
+
+		if ( Object.keys(this.chatService.ticketsMaster).length === 0 ) {
+			if ( this.authService.isAdmin() ) {
+				this.getTicketsAdmin();
+			} else if ( this.authService.isAlumno() ) {
+				this.getTicketsMatricula();
+			}
+		} else {
+			this.entrarASalasDeTickets();
+			this.mostrarMensajes();
+		}
 		
-		console.log('LA MATRICULA ES:', this.matricula);
-		this.idTicket= this.activatedRoute.snapshot.paramMap.get('idTicket');
-		console.log('Ticket Seleccionado',this.idTicket);
-		this.ticketSeleccionado = this.chatService.ticketsMaster[this.idTicket];
-		this.mostrarMensajes();
+
+		
 	}
-	
-	ngAfterViewInit(): void {
-		// this.scrollBottom(true);
+
+	getTicketsMatricula() {
+		console.log('Obteniendo tickets por matrícula');
+		this.ticketsService.getTicketsPorMatricula( this.matricula ).subscribe( respuesta => {
+			if ( respuesta.ok ) {
+				const ticketHolder: TicketModel[] = respuesta.tickets;
+				ticketHolder.forEach(ticket => {
+					this.chatService.ticketsMaster[ticket.id] = new TicketModel (ticket);
+				});
+				this.entrarASalasDeTickets();
+				this.mostrarMensajes();
+			}
+		});
+	}
+
+	getTicketsAdmin() {
+		this.ticketsService.getTickets().subscribe(respuesta => {
+			if ( respuesta.ok ) {
+				const ticketHolder: TicketModel[] = respuesta.tickets;
+				ticketHolder.forEach(ticket => {
+					this.chatService.ticketsMaster[ticket.id] = new TicketModel(ticket);
+				});
+				
+				this.entrarASalasDeTickets();
+				// Ya están consultados, ya podemos mostrar los mensajes.
+				this.mostrarMensajes();
+			}
+		});
 	}
 	
 	mostrarMensajes(): void {
 		console.log('Mostrando mensajes...');
+		console.log('idTicket', this.idTicket);
 		this.ticketSeleccionado = this.chatService.ticketsMaster[this.idTicket];
-		
+		console.log('ticketSeleccionado', this.ticketSeleccionado);
 		this.ticketSeleccionado.chat.forEach( mensaje => {
 			this.chat.push( mensaje);
 		});
 	}
-	
-	enviarMensaje(){
+
+	enviarMensaje() {
 		console.log('FUNCION ENVIAR MENSAJE');
 		console.log('Enviando mensaje...');
-		
-		// HARDCODED LINES:
-		// let url: string;
-		// if ( this.authService.isAdmin() ) {
-		// 	url = 'assets/images/users/1.jpg';
-		// } else {
-		// 	url = 'assets/images/users/2.jpg';
-		// }
 		
 		const mensaje: MensajeInterface = {
 			matricula: this.matricula,
@@ -113,14 +129,17 @@ export class ChatComponent implements OnInit, AfterViewInit  {
 			sala: this.ticketSeleccionado.id
 		};
 		
-		console.log(mensaje);
-		
-		this.chatService.sendMessage( mensaje );
-		// this.chat.push( mensaje );
-		this.agregarMensajeUI( mensaje );
-		
+		if ( mensaje.mensaje !== null ) {
+			console.log(mensaje);
+			this.chatService.sendMessage( mensaje );
+			// this.chat.push( mensaje );
+			this.agregarMensajeUI( mensaje );
+		} else {
+			console.log('NO hay mensaje');
+		}
 		this.mensajeForm.reset();
 	}
+
 	
 	agregarMensajeUI( message: MensajeInterface ) {
 		this.chatService.ticketsMaster[message.sala].chat.push( message );
@@ -148,45 +167,6 @@ export class ChatComponent implements OnInit, AfterViewInit  {
 		return null;
 	}
 	
-	actualizarUIAdmin( usuarioPrevio: UsuarioInterface, usuarioSeleccionado: UsuarioInterface, ticketsDelUsuario: TicketModel[] ): boolean {
-		
-		if ( !usuarioPrevio || usuarioPrevio.matricula !== usuarioSeleccionado.matricula ) {
-			
-			this.ticketsDelUsuario = ticketsDelUsuario;
-			usuarioPrevio = usuarioSeleccionado;
-			
-			// this.generarOpcionesDeTickets();
-			
-			// Cambiar opción del select al primer ticket[0].
-			// if ( this.ticketsOpciones.length > 0 ) {
-			// 	this.ticketForm.get('ticket').setValue( this.ticketsOpciones[0].value );
-			// 	this.ticketSeleccionado = ticketsDelUsuario[0];
-			
-			// }
-			
-			this.mostrarMensajes();
-			
-			return true;
-			
-		}
-		
-		return false;
-	}
-	
-	actualizarUIUsuario( ticket: TicketModel ) {
-		if ( !this.ticketSeleccionado || ticket.id !== this.ticketSeleccionado.id ) {
-			
-			this.ticketSeleccionado = ticket;
-			// this.chat = ticket.chat || [];
-			this.mostrarMensajes();
-		}
-	}
-	
-	resetearForm() {
-		this.ticketForm.reset({
-			ticket: ''
-		});
-	}
 
 	entrarASalasDeTickets() {
 		// Conectarse al namespace de '/chat'
@@ -216,62 +196,6 @@ export class ChatComponent implements OnInit, AfterViewInit  {
 		this.chatService.ticketsMaster[message.sala].chat.push( message );
 	}
 
-
-	cambiarChatContainerUI( event: {usuario: UsuarioInterface, ticket: TicketModel} ) {
-		const usuario = event.usuario;
-		const ticket = event.ticket;
-		
-		console.log('Cambiando chat UI...');
-		
-		if ( ticket ) {
-			
-			console.log('Es una instancia de Ticket');
-			this.actualizarUIUsuario( ticket );
-
-		} else {
-
-			console.log('Es una Interfaz de Usuario');
-			const guardarUsuario = this.actualizarUIAdmin( this.usuarioSeleccionado, usuario, this.sacarTicketsDelUsuario( usuario ));
-			if ( guardarUsuario ) {
-				this.usuarioSeleccionado = usuario;
-			}
-		}
-	}
-
-	
-	sacarTicketsDelUsuario( usuario: UsuarioInterface ): TicketModel[] {
-		const ticketsDelUsuario: TicketModel[] = [];
-
-		Object.keys(this.chatService.ticketsMaster).forEach( id => {
-			const ticket = this.chatService.ticketsMaster[id];
-			if ( ticket.usuario.matricula === usuario.matricula ) {
-				ticketsDelUsuario.push( ticket );
-			}
-		});
-
-		// for (const ticket of this.tickets ) {
-		// 	if ( ticket.usuario.matricula === usuario.matricula ) {
-		// 		ticketsDelUsuario.push( ticket );
-		// 	}
-		// }
-		return ticketsDelUsuario;
-	}
-
-	
-	usuarioRepetido( usuarioNuevo: UsuarioInterface ): boolean {
-		let vecesRepetido = 0;
-
-		for (const usuario of this.usuarios ) {
-			if ( usuario.matricula === usuarioNuevo.matricula ) {
-				vecesRepetido++;
-			}
-		}
-		if ( vecesRepetido > 0 ) {
-			return true;
-		}
-		return false;
-	}
-
 	ngOnDestroy() {
 		if ( this.getMessagesSub ) {
 			this.getMessagesSub.unsubscribe();
@@ -280,5 +204,4 @@ export class ChatComponent implements OnInit, AfterViewInit  {
 			this.reconnectSub.unsubscribe();
 		}
 	}
-	
 }

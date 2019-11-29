@@ -113,8 +113,8 @@ export interface InputInterface {
 	plural: boolean;
 }
 
-// export interface CookieEncriptada {
-// 	iv: string;
-// 	encryptedData: string;
-// }
-
+export interface MenuOption {
+	nombre: string;
+	icono: string;
+	link: string[];
+}

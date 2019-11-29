@@ -1,18 +1,49 @@
 <ion-menu side="start" menuId="first" contentId="principal">
-	<ion-content>
-		<ion-title color="primary">
-			UPPERLAB-MÓVIL
-		</ion-title>
-		<ion-list>
-			<ion-item *ngFor="let opcion of opciones" [routerLink]="opcion.link">
-				<ion-icon [name]="opcion.icono"></ion-icon>
-				<ion-label>{{ opcion.nombre }}</ion-label>
-			</ion-item>
+	
+	<ion-header color="morado" class="padding">
 
-			<ion-item (click)="authService.cerrarSesion()">
-				<ion-icon name="home"></ion-icon>
-				<ion-label>Cerrar Sesión</ion-label>
-			</ion-item>
+		<ion-grid>
+			
+			<ion-row id="fila-up">
+				<ion-col>
+					<ion-avatar>
+						<img src="assets/profiles/Bo-Burnham.png">
+					</ion-avatar>
+				</ion-col>
+				
+				<ion-col size="auto">
+					<ion-icon id="icon-bell" src="assets/icon/bell.svg" color="light" size="large"></ion-icon>
+				</ion-col>
+			</ion-row>
+
+			<ion-row id="fila-correo">
+				<ion-col>
+					<ion-label id="label-correo" color="light">{{ correoDeUsuario }}</ion-label>
+				</ion-col>
+			</ion-row>
+
+		</ion-grid>
+	</ion-header>
+	
+	<ion-content>
+		<ion-list>
+			
+			<ion-menu-toggle *ngFor="let opcion of opciones | async">
+				<ion-item [routerLink]="opcion.link" lines="none" routerLinkActive="active-item">
+					<ion-icon slot="start" [src]="'assets/icon/'+opcion.icono" routerLinkActive="active-item"></ion-icon>
+					<ion-label>{{ opcion.nombre }}</ion-label>
+				</ion-item>
+				
+			</ion-menu-toggle>
+			
+			<ion-item-divider></ion-item-divider>
+			
+			<ion-menu-toggle>
+				<ion-item (click)="authService.cerrarSesion()" lines="none">
+					<ion-icon slot="start" src="assets/icon/logout.svg"></ion-icon>
+					<ion-label>Cerrar Sesión</ion-label>
+				</ion-item>
+			</ion-menu-toggle>
 		</ion-list>
 	</ion-content>
-</ion-menu>
+</ion-menu> 

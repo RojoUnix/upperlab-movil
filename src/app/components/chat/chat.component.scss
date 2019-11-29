@@ -1,0 +1,81 @@
+.usuario{
+    display: flex;
+    height: auto;
+    width: 70%;
+    min-width: 370px;
+    border-radius: 5px;
+    align-items:stretch;
+    background-color: rgb(123, 123, 251);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.visita{
+    display: flex;
+    height: auto;
+    width: 70%;
+    min-width: 370px;
+    border-radius: 5px;
+    align-items:stretch;
+    background-color: rgb(240, 245, 163);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.wolfBot{
+    display: flex;
+    height: auto;
+    width: 70%;
+    min-width: 370px;
+    border-radius: 5px;
+    align-items:stretch;
+    background-color: rgb(255, 167, 145);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.isOwnMessageContainer{
+    background-color: #01579B;
+}
+
+.messageData{
+    flex: 1;
+    padding: 10px;
+    font-size: 0.7em;
+}
+
+.sender{
+    display: block;
+    color: #222;
+    font-weight: bold;
+}
+
+.isOwnSender{
+    color: #E1F5FE;
+}
+
+.timestamp1 {
+	color: rgb(0, 0, 0);
+	font-style: italic;
+}
+
+.timestamp2 {
+    color: rgb(255, 255, 255);
+    font-style: italic;
+}
+
+
+.isOwnTimestamp{
+    color: #4FC3F7;
+}
+
+.messageContent{
+    height: auto;
+    flex: 9;
+    background-color: #fff;
+    padding: 10px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.isOwnMessageContent{
+    background-color: #E3F2FD;
+    color: #01579B;
+}

@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AdminPage } from './admin.page';
 import { AdminRoutingModule } from './admin-routing.module';
-import { TicketsAdminPage } from 'src/app/pages/tickets-admin/tickets-admin.page';
-import { ConversacionPage } from './pages/conversacion/conversacion.page';
 
 
 @NgModule({
@@ -18,9 +16,7 @@ import { ConversacionPage } from './pages/conversacion/conversacion.page';
 		ComponentsModule
 	],
 	declarations: [
-		AdminPage,
-		TicketsAdminPage,
-		ConversacionPage
+		AdminPage
 	]
 })
 export class AdminPageModule {}

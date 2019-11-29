@@ -1,14 +1,8 @@
-ion-slides, ion-slide{
-	height: 100%;
-	width: 100;
+
+ion-grid {
+    width: fit-content;
 }
 
-.contenedor {
-    max-width: 300px;
-    
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    justify-items: center;
+ion-row {
+    height: calc(100vh - 80px);
 }
