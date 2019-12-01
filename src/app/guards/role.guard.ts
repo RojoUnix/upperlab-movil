@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { ROLES } from '../config/config';
 import { AlertService } from '../services/alert.service';
+import { NavController } from '@ionic/angular';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ import { AlertService } from '../services/alert.service';
 })
 export class RoleGuard implements CanActivate {
 	
-	constructor(private alertService: AlertService, private authService: AuthService, private router: Router, private _location: Location ) {}
+	constructor( private authService: AuthService, private router: Router, private navCtrl: NavController ) {}
 	
 	canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
 		console.log('Funcion canActivate...');
@@ -39,17 +40,16 @@ export class RoleGuard implements CanActivate {
 				// 	} else {
 				// 		this.alertService.mostrarError('Permisos insuficientes','No tienes permiso para realizar esta acción');
 				// 	}
-				if (rol === ROLES.ADMINISTRADOR){
-					console.log('%c Eres ADMINISTRADOR','color: red');
+				if (rol === ROLES.ADMINISTRADOR) {
+					console.log('%c Eres ADMINISTRADOR', 'color: red');
 					console.log(this.router.url);
-					
-					this.router.navigate(['/admin/tickets']);
+					this.navCtrl.navigateRoot('/tickets');
 				} else if ( rol === ROLES.ALUMNO ) {
 					console.log('%c Eres ALUMNO', 'color: pink');
-					this.router.navigate(['/alumno/asistencia']);
+					this.navCtrl.navigateRoot('/asistencia');
 				} else if ( rol === ROLES.PROFESOR ) {
 					console.log('%c Eres PROFESOR', 'color: pink');
-					this.router.navigate(['/profesor/solicitud']);
+					this.navCtrl.navigateRoot('/solicitud');
 				}
 				
 				return resolve(false);

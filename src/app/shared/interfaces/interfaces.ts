@@ -68,11 +68,11 @@ export interface IncidenciaComunItem {
 }
 
 
-//Interface para Reporte Asistencia
-export interface ReportesGrupo{
-	generacion: string, 
-	carrera: string, 
-	grupo: string
+// Interface para Reporte Asistencia
+export interface ReportesGrupo {
+	generacion: string;
+	carrera: string;
+	grupo: string;
 }
 
 export interface RegistroNoAutorizado {
