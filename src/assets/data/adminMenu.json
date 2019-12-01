@@ -2,6 +2,6 @@
 	{
 		"nombre": "Tickets",
 		"icono": "ticket.svg",
-		"link": ["/admin/tickets"]
+		"link": ["/tickets"]
 	}
 ]

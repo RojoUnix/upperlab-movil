@@ -17,7 +17,7 @@ const routes: Routes = [
 		canActivate: [AllGuard],
 		data: {
 			guards: [AuthGuard, RoleGuard],
-			roles: [ROLES.ADMINISTRADOR, ROLES.ALUMNO]
+			roles: [ROLES.ADMINISTRADOR, ROLES.ALUMNO, ROLES.PROFESOR]
 		}
 	}
 ];

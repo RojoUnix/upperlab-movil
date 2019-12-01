@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FcmService } from '../../services/fcm.service';
+import { ToastController } from '@ionic/angular';
+import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-tickets',
@@ -7,8 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketsPage implements OnInit {
 	
-	constructor() {}
+	constructor( private fcm: FcmService, private toastCtrl: ToastController ) {}
 	
-	ngOnInit() {}
+	ngOnInit() {
+		this.fcm.getToken();
+		
+		this.fcm.listenToNotifications().pipe( tap( msg => {
+			console.log('Listened to Notification...');
+			this.presentToast( msg ).then( () => {} );
+		}));
+	}
+
+	async presentToast( msg: any ) {
+		const toast = await this.toastCtrl.create({
+			message: msg.body,
+			duration: 2000
+		});
+		toast.present();
+	}
 
 }

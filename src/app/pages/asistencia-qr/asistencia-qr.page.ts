@@ -5,9 +5,6 @@ import { AuthService } from '../../services/auth.service';
 import { AlumnoModel } from 'src/app/models/alumno.model';
 import { AlertService } from '../../services/alert.service';
 import { HeaderService } from '../../services/header.service';
-import { FcmService } from '../../services/fcm.service';
-import { ToastController } from '@ionic/angular';
-import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-asistencia-qr',
@@ -16,25 +13,11 @@ import { tap } from 'rxjs/operators';
 })
 export class AsistenciaQrPage implements OnInit {
 	
-	constructor( private barcodeScanner: BarcodeScanner, public asistenciaService: AsistenciaService, private authService: AuthService, private alertService: AlertService, private headerService: HeaderService, public fcm: FcmService, public toastCtrl: ToastController  ) {}
+	constructor( private barcodeScanner: BarcodeScanner, public asistenciaService: AsistenciaService, private authService: AuthService, private alertService: AlertService, private headerService: HeaderService ) {}
 	
-	ngOnInit() {
-		this.fcm.getToken();
-		
-		this.fcm.listenToNotifications().pipe( tap( msg => {
-			console.log('Listened to Notification...');
-			this.presentToast( msg ).then( () => {} );
-		}));
-	}
+	ngOnInit() {}
 	
-	async presentToast( msg: any ) {
-		const toast = await this.toastCtrl.create({
-			message: msg.body,
-			duration: 2000
-		});
-		toast.present();
-	}
-	
+
 	// Entrará y lanzara la funcion de Scan
 	ionViewWillEnter() {
 		console.log('ionViewWillEnter() - AsistenciaQrPage');

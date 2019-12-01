@@ -2,11 +2,11 @@
 	{
 		"nombre": "Tickets",
 		"icono": "ticket.svg",
-		"link": ["/profesor/tickets"]
+		"link": ["/tickets"]
 	},
 	{
 		"nombre": "Solicitud de laboratorios",
 		"icono": "outbox.svg",
-		"link": ["/profesor/solicitud"]
+		"link": ["/solicitud"]
 	}
 ]
