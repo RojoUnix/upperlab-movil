@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
 	correo: string;
 	contrasena: string;
 
-	constructor( public storage: Storage, private authServicio: AuthService, private router: Router, private alertService: AlertService, private navCtrl: NavController, private menuService: MenuService ) {
+	constructor( public storage: Storage, private authServicio: AuthService, private router: Router, private alertService: AlertService, private navCtrl: NavController, private menuService: MenuService,  ) {
 	}
 	
 	ngOnInit() {

@@ -1,12 +1,37 @@
-div {
+
+ion-content {
+	--background: rgb(235, 240, 243);
+}
+
+div#header {
+	height: 6%;
+	background-color: #FE9300 !important;
+}
+
+ion-content, div#logo {
 	text-align: center;
 	align-content: center;
 	align-items: center;
 }
 
-ion-title {
-	background-color:#FE9300;
-	color:#FE9300;
+div#logo {
+	margin-bottom: 25px;
+}
+
+div#inputs-container {
+	background-color: white;
+	border-radius: 15px;
+	width: 90%;
+	margin-left: 5%;
+}
+
+// ion-toolbar {
+// 	--background:#FE9300;
+// }
+
+ion-button {
+	--background: var(--ion-color-morado);
+	margin-bottom: 20px;
 }
 
 ion-img {
@@ -18,26 +43,20 @@ ion-img {
 	display: block;
 }
 
-ion-footer {
-	background-color: #4D1D90;
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	height: 40px;
-	color: white;
-	text-align: center;
-}
+// ion-footer {
+// 	background-color: #4D1D90;
+// 	position: absolute;
+// 	bottom: 0;
+// 	width: 100%;
+// 	height: 40px;
+// 	color: white;
+// 	text-align: center;
+// }
 
-ion-input{
-	margin: 10px 10px 10px 10px;
-}
+// ion-input{
+// 	margin: 10px 10px 10px 10px;
+// }
 
-
-#tituloLogin {
-	font-size: 60px;
-	color: red;
-	margin-bottom: 30px;
-}
 
 .text-amarillo-upemor{
 	color: #FE9300;

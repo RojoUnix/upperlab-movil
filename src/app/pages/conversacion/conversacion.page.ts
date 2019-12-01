@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MensajeInterface, TicketModel, UsuarioInterface } from '../../models/ticket.model';
-import { Subscription, Subject } from 'rxjs';
+import { MensajeInterface, TicketModel } from '../../models/ticket.model';
+import { Subscription } from 'rxjs';
 import { TicketsService } from '../../services/tickets.service';
 import { AuthService } from '../../services/auth.service';
 import { ChatService } from '../../services/chat.service';
-import { HeaderService } from '../../services/header.service';
 import { ActivatedRoute } from '@angular/router';
 import { MATRICULA_WOLFBOT } from '../../config/config';
 import { IonContent } from '@ionic/angular';
@@ -26,9 +24,6 @@ export class ConversacionPage implements OnInit, OnDestroy {
 	matricula: string;
 	idTicket: string;
 	getMessagesSub: Subscription;
-
-
-	
 
 	
 	constructor( public ticketsService: TicketsService, public authService: AuthService, public chatService: ChatService, public activatedRoute: ActivatedRoute ) { }
@@ -128,7 +123,6 @@ export class ConversacionPage implements OnInit, OnDestroy {
 			if ( mensaje.mensaje !== null ) {
 				console.log(mensaje);
 				this.chatService.sendMessage( mensaje );
-				// this.chat.push( mensaje );
 				this.agregarMensajeUI( mensaje );
 			} else {
 				console.log('NO hay mensaje');

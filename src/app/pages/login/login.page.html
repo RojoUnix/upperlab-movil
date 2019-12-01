@@ -1,20 +1,18 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-title><h1>Upperlab</h1></ion-title>
-	</ion-toolbar>
-</ion-header>
 
-<ion-content class="ion-padding">
+<ion-content fullscreen>
 	
-	<div id="login">
+	<div id="header" color="amarillo"></div>
+	
+	<div id="logo">
 		<ion-img src="./../../../../assets/upperlab-logo.png"></ion-img>
 		<h1 class="text-primary">
-			<span class="text-amarillo-upemor">Upper</span>
+			<span  class="text-amarillo-upemor">Upper</span>
 			<span class="text-rojo-upemor"><strong>Lab</strong></span>
-		</h1>	
-		
-		
-		<!-- <form [formGroup]="formulario" (ngSubmit)="enviarFormulario(); formulario.reset()"> -->
+		</h1>
+	</div>
+	
+	<div id="inputs-container" class="ion-padding ion-margin-bottom">
+		<ion-list>
 			<ion-item>
 				<ion-label position="floating">Correo</ion-label>
 				<ion-input type="email"
@@ -33,16 +31,13 @@
 							required>
 				</ion-input>
 			</ion-item>
+		</ion-list>
+		
+		<div>
+			<ion-button expand="block" type="button" (click)="enviarFormulario()">Ingresar</ion-button>
+		</div>
 
-			<ion-button expand="full" color="rojo" type="submit">Ingresar</ion-button>
-			
-		<!-- </form> -->
 	</div>
+
 </ion-content>
 
-
-
-<!-- 
-<ion-footer>
-	<h6>UPEMOR 2019</h6>
-</ion-footer> -->
