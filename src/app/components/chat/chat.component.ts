@@ -7,6 +7,7 @@ import { ChatService } from '../../services/chat.service';
 import { ActivatedRoute } from '@angular/router';
 import { TicketsService } from '../../services/tickets.service';
 import { MATRICULA_WOLFBOT } from '../../config/config';
+import { HeaderService } from '../../services/header.service';
 
 @Component({
 	selector: 'app-chat',
@@ -40,7 +41,7 @@ export class ChatComponent implements OnInit, OnDestroy  {
 	
 	formularioEnviado$: Subject<boolean> = new Subject();
 	
-	constructor( public ticketsService: TicketsService, public authService: AuthService, public chatService: ChatService, public activatedRoute: ActivatedRoute ) { }
+	constructor( public ticketsService: TicketsService, public authService: AuthService, public chatService: ChatService, public activatedRoute: ActivatedRoute, private headerService: HeaderService ) { }
 	
 	async ngOnInit() {
 
@@ -61,6 +62,7 @@ export class ChatComponent implements OnInit, OnDestroy  {
 
 		console.log('keys length');
 		console.log(Object.keys(this.chatService.ticketsMaster).length);
+		console.log(this.chatService.ticketsMaster);
 
 		if ( Object.keys(this.chatService.ticketsMaster).length === 0 ) {
 			if ( this.authService.isAdmin() ) {
@@ -72,9 +74,6 @@ export class ChatComponent implements OnInit, OnDestroy  {
 			this.entrarASalasDeTickets();
 			this.mostrarMensajes();
 		}
-		
-
-		
 	}
 
 	getTicketsMatricula() {

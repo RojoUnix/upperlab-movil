@@ -23,7 +23,7 @@ export class LoginGuard implements CanActivate {
 				}
 				// Ya se encuentra identificado
 				console.log('%c LoginGuard -> Está Autenticado', 'color: blue');
-				this.router.navigate(['/alumno/asistencia']);
+				this.router.navigate(['/asistencia']);
 				return resolve(false);
 			}));
 		});
@@ -31,47 +31,5 @@ export class LoginGuard implements CanActivate {
 		// return this.auth.estaAutenticado();
 		
 	}
-
-
-	/**
-	 * 
-				console.log('Usuario');
-				console.log(user);
-				
-				// Ya se encuentra identificado
-				console.log('%c LoginGuard -> Está Autenticado', 'color: blue');
-
-				user.getIdTokenResult().then( token => {
-
-					const rol = this.auth.valorNumericoRol( token.claims );
-					
-					this.auth.rol = rol;
-					this.auth.usuario = user;
-
-					
-					if ( rol === ROLES.ADMINISTRADOR ) {
-						console.log('Eres ADMINISTRADOR');
-						this.router.navigate(['/admin/dashboard']);
-						
-						
-					} else if ( rol === ROLES.ALUMNO ) {
-						console.log('Eres ALUMNO');
-						this.router.navigate(['/alumno/asistencia']);
-						
-						
-					} else if ( rol === ROLES.PROFESOR ) {
-						console.log('Eres PROFESOR');
-						this.router.navigate(['/profesor/inicio']);
-						
-						
-					}
-					console.log('Retornando false');
-					
-					return resolve(false);
-				}).catch(err => {
-					return resolve(false);
-				});
-			}));
-	 */
 	
 }

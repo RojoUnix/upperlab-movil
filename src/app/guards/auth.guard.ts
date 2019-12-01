@@ -2,13 +2,14 @@ import { Injectable, NgZone } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Storage } from '@ionic/storage';
+import { MenuService } from '../services/menu.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-	constructor( private auth: AuthService, private router: Router, private ngZone: NgZone, private storage: Storage ) {}
+	constructor( private auth: AuthService, private router: Router, private ngZone: NgZone, private storage: Storage, private menuService: MenuService ) {}
 
 	canActivate(): Promise<boolean> {
 
@@ -27,6 +28,8 @@ export class AuthGuard implements CanActivate {
 						console.log('%c Rol Usuario: ', 'color: orange');
 						console.log(this.auth.rol);
 						console.log(idTokenResult);
+
+						this.menuService.updateMenu();
 
 						const expirationTime = new Date(idTokenResult.expirationTime);
 						const nowTime = new Date();

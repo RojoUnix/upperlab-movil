@@ -118,3 +118,8 @@ export interface MenuOption {
 	icono: string;
 	link: string[];
 }
+
+export interface HeaderOption {
+	buttonType: number;
+	url: string;
+}

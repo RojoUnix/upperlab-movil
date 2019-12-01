@@ -8,6 +8,7 @@ import { AlumnosService } from './alumno.service';
 import { ProfesorModel } from '../models/profesor.model';
 import { AlertService } from './alert.service';
 import { ProfesorService } from './profesor.service';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
 	providedIn: 'root'
@@ -21,7 +22,7 @@ export class AuthService {
 	profesor: ProfesorModel;
 	
 	// Inyectamos el servicio
-	constructor( public afAuth: AngularFireAuth, private router: Router, private alumnosService: AlumnosService, private profesoresService: ProfesorService, private storage: Storage, private alertService: AlertService ) { }
+	constructor( public afAuth: AngularFireAuth, private router: Router, private alumnosService: AlumnosService, private profesoresService: ProfesorService, private storage: Storage, private alertService: AlertService, private navCtrl: NavController ) { }
 	
 	// Función para Iniciar Sesión
 	iniciarSesion( correo: string, contrasena: string ) {
@@ -73,7 +74,8 @@ export class AuthService {
 	cerrarSesion() {
 		this.afAuth.auth.signOut().then ( (val) => {
 			this.borrarDatosUsuario();
-			this.router.navigate(['login']);
+			// this.router.navigate(['login']);
+			this.navCtrl.navigateRoot('/login');
 		}).catch( err => {
 			console.log('Cerrar Sesión Catch()');
 			console.log( err );

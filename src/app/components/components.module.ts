@@ -7,7 +7,6 @@ import { ChatComponent } from './chat/chat.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListaTicketsComponent } from './lista-tickets/lista-tickets.component';
-import { NuevoTicketPage } from '../pages/nuevo-ticket/nuevo-ticket.page';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { SolicitudComponent } from './solicitud/solicitud.component';
 import { SimpleSelectComponent } from './simple-select/simple-select.component';
@@ -24,7 +23,6 @@ import { EquipoEstadoPipe } from './pipes/equipo-estado.pipe';
 		HeaderComponent,
 		ListaTicketsComponent,
 		MenuComponent,
-		NuevoTicketPage,
 		ChatComponent,
 		SolicitudComponent,
 		SolicitudesComponent,

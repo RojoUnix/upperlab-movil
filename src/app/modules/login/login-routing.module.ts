@@ -5,9 +5,9 @@ import { LoginGuard } from '../../guards/login.guard';
 
 const routes: Routes = [
 	{
-		path: 'login',
-		pathMatch: 'full',
+		path: '',
 		component: LoginPage,
+		pathMatch: 'full',
 		canActivate: [LoginGuard]
 	}
 ];
@@ -17,7 +17,7 @@ const routes: Routes = [
 	imports: [
 		RouterModule.forChild(routes)
 	],
-	exports:[ 
+	exports: [
 		RouterModule 
 	]
 })

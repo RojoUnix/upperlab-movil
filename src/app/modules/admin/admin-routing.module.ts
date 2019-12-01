@@ -14,6 +14,11 @@ const routes: Routes = [
 		component: AdminPage,
 		children: [
 			{
+				path: '',
+				pathMatch: 'full',
+				redirectTo: '/admin/tickets'
+			},
+			{
 				path: 'tickets',
 				pathMatch: 'full',
 				component: ListaTicketsComponent,

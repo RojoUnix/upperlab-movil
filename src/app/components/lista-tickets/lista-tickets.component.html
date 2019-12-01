@@ -1,4 +1,4 @@
-<ion-content color="morado">
+<!-- <ion-content color="morado"> -->
 	<div id="contenedor">
 		<ion-card color="light" *ngFor="let id of objectKeys(this.chatService.ticketsMaster), let i = index">
 			<ion-card-content>
@@ -32,7 +32,7 @@
 						</ion-col>
 						<ion-col size="auto">
 							<!-- <ion-icon src="assets/icon/forums.svg" color="medium"></ion-icon> -->
-							<ion-button [color]=" esAdmin ? 'danger' : 'tertiary'" [routerLink]="['conversacion', chatService.ticketsMaster[id].id]" size="small">
+							<ion-button [color]=" esAdmin ? 'danger' : 'tertiary'" size="small" [routerLink]="['/tickets/conversacion', id]" routerDirection="forward">
 								<ion-icon name="chatboxes" size="small" class="chat-icon"></ion-icon>
 								<ion-label>Chat</ion-label>
 							</ion-button>
@@ -64,10 +64,10 @@
 			</div>
 		</ion-card>
 	</div>
-</ion-content>
+<!-- </ion-content> -->
 	
 <ion-fab vertical="bottom" horizontal="end" style="position:fixed;" *ngIf="esAdmin !== true">
-	<ion-fab-button [routerLink]="['nuevo']">
+	<ion-fab-button [routerLink]="['nuevo']" routerDirection="forward">
 		<ion-icon name="add"></ion-icon>
 	</ion-fab-button>
 </ion-fab>

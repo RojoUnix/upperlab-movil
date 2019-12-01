@@ -2,11 +2,11 @@
 	{
 		"nombre": "Asistencia",
 		"icono": "inbox.svg",
-		"link": ["/alumno/asistencia"]
+		"link": ["/asistencia"]
 	},
 	{
 		"nombre": "Tickets",
 		"icono": "ticket.svg",
-		"link": ["/alumno/tickets"]
+		"link": ["/tickets"]
 	}
 ]

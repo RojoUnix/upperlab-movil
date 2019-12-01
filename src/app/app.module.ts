@@ -1,32 +1,36 @@
+
+// Angular
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// AngularFire
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { environment } from '../environments/environment';
+// Ionic
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
-import { LoginPageModule } from './modules/login/login.module';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChatService } from './services/chat.service';
-import { ComponentsModule } from './components/components.module';
-import { AdminPageModule } from './modules/admin/admin.module';
-import { AlumnoPageModule } from './modules/alumno/alumno.module';
-import { ProfesorPageModule } from './modules/profesor/profesor.module';
 
+// AngularFire / Firebase / Servicios propios
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Firebase } from '@ionic-native/firebase/ngx';
 import { FcmService } from './services/fcm.service';
+
+// Modules
+import { ComponentsModule } from './components/components.module';
+import { AppRoutingModule } from './app-routing.module';
+
+// Components
+import { AppComponent } from './app.component';
+
+// Data
+import { environment } from '../environments/environment';
+
 
 @NgModule({
 	declarations: [
@@ -41,18 +45,12 @@ import { FcmService } from './services/fcm.service';
 		AngularFireAuthModule,
 		IonicStorageModule.forRoot(),
 		ComponentsModule,
-		AlumnoPageModule,
-		ProfesorPageModule,
-		AdminPageModule,
-		LoginPageModule,
 		AppRoutingModule, 
 		ReactiveFormsModule,
 		HttpClientModule,
 		FormsModule
 	],
 	providers: [
-		
-		ChatService,
 		StatusBar,
 		SplashScreen,
 		ComponentsModule,
