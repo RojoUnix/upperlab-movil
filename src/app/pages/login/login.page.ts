@@ -16,7 +16,9 @@ import { MenuService } from '../../services/menu.service';
 })
 
 export class LoginPage implements OnInit {
-	public formulario: FormGroup;
+	
+	correo: string;
+	contrasena: string;
 
 	constructor( public storage: Storage, private authServicio: AuthService, private router: Router, private alertService: AlertService, private navCtrl: NavController, private menuService: MenuService ) {
 	}
@@ -25,25 +27,23 @@ export class LoginPage implements OnInit {
 		// No mostrar el menú en el LoginPage.
 		this.menuService.showMenu(false);
 
-		this.formulario = new FormGroup({
-			correo: new FormControl('', [
-			Validators.required,
-			// tslint:disable-next-line: quotemark
-			Validators.pattern("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
-			]),
-			contrasena: new FormControl('', Validators.required)
-		});
+		// this.formulario = new FormGroup({
+		// 	correo: new FormControl('', [
+		// 	Validators.required,
+		// 	// tslint:disable-next-line: quotemark
+		// 	Validators.pattern("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
+		// 	]),
+		// 	contrasena: new FormControl('', Validators.required)
+		// });
 	}
 
 	// Formulario
 	enviarFormulario() {	
 
-		this.authServicio.iniciarSesion(this.formulario.get('correo').value,
-		this.formulario.get('contrasena').value).then( (userCredential: auth.UserCredential) => {
+		this.authServicio.iniciarSesion(this.correo, this.contrasena).then( (userCredential: auth.UserCredential) => {
 	
 			// Se obtiene el usuario y sus atributos
 			this.authServicio.usuario = userCredential.user;
-		
 						
 			userCredential.user.getIdTokenResult(true).then( async idTokenResult => {				
 				const rol = this.authServicio.valorNumericoRol( idTokenResult.claims );
@@ -56,22 +56,16 @@ export class LoginPage implements OnInit {
 				console.log('Guardado');
 			
 				
-			
+				this.menuService.showMenu(true);
+
 				if ( rol === ROLES.SUPERADMINISTRADOR ) {
-					this.alertService.mostrarError('Módulo no implementado', 'El módulo de superadmin aún no está implementado.');
-				} else if ( rol === ROLES.ADMINISTRADOR ) {
-					this.menuService.showMenu(true);
+					this.menuService.showMenu(false);
+					this.alertService.mostrarError('Módulo no implementado', 'Pronto el Super administrador podrá ingresar...');
+				} else if ( rol === ROLES.ADMINISTRADOR || rol === ROLES.PROFESOR ) {
 					this.navCtrl.navigateRoot('/tickets');
-					// this.router.navigate(['/admin/tickets']);
-				} else if (rol === ROLES.PROFESOR) {
-					this.menuService.showMenu(true);
-					this.navCtrl.navigateRoot('/tickets');
-					// this.router.navigate(['profesor']);
 				} else if ( rol === ROLES.ALUMNO ) {
-					this.menuService.showMenu(true);
 					this.navCtrl.navigateRoot('/asistencia');
-					// this.router.navigate(['/alumno/asistencia']);
-				}				
+				}
 			});
 			
 		}).catch( (error) => {

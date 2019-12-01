@@ -1,66 +1,15 @@
 
-<!-- <ion-content class="ion-padding"> -->
-	<!-- CHAT -->
-	<!-- <h1>Conversación {{ ticketSeleccionado.titulo }} </h1> -->
-	<div class="container" >
-		<div  *ngFor="let mensaje of chatService.ticketsMaster[ticketSeleccionado?.id]?.chat" style="margin-bottom: 40px;">
-			<div class="visita" *ngIf="matricula === mensaje.matricula">
-				<div class="messageContent">
-					{{ mensaje.mensaje }}
-				</div>
-				<div class="messageData">
-					<span class="sender">
-						{{ mensaje.nombre.split(' ')[0] }}
-					</span>
-					<span class="timestamp1">
-						{{ mensaje.timestamp | date:'medium' }}
-					</span>
-				</div>
-			</div>
+<!-- <ion-content> -->
 	
-			<div class="usuario" *ngIf="matricula !== mensaje.matricula">
-				<div class="messageData">
-					<span class="sender">
-						{{ mensaje.nombre.split(' ')[0] }}
-					</span>
-					<span class="timestamp2">
-						{{ mensaje.timestamp | date:'medium' }}
-					</span>
-				</div>
-				<div class="messageContent">
-					{{ mensaje.mensaje }}
-				</div>
-			</div>
-	
-			<!-- <div class="wolfBot" *ngIf="mensaje.nombre === 'Wolf Bot'">
-				<div class="messageData">
-					<span class="sender">
-						{{ mensaje.nombre.split(' ')[0] }}
-					</span>
-					<span class="timestamp">
-						{{ mensaje.timestamp | date:'medium' }}
-					</span>
-				</div>
-				<div class="messageContent">
-					{{ mensaje.mensaje }}
-				</div>
-			</div> -->
-	
-		</div>	
-	</div>
+	<br>
 
+	<app-message *ngFor="let mensaje of chatService.ticketsMaster[ticketSeleccionado?.id]?.chat; let i = index" 
+		[mensaje]="mensaje" 
+		[propio]="matricula === mensaje.matricula"
+		[siguiente]="siguienteMensaje(i)"
+		[anterior]="mensajeAnterior(i)">
+	</app-message>
+	
+	<!-- <div class="wolfBot" *ngIf="mensaje.nombre === 'Wolf Bot'"> -->
+	
 <!-- </ion-content> -->
-
-
-<!-- Texto para enviar -->
-<ion-footer>
-	<ion-buttons slot="end">
-	<form [formGroup]="mensajeForm">
-		<ion-input formControlName="mensaje" placeholder="Escribe tu mensaje aquí" expand="full"  (keyup.enter)="enviarMensaje()"></ion-input>
-	</form>
-		<ion-button type="submit" (click)="enviarMensaje()">
-				<ion-icon name="send"></ion-icon>
-		</ion-button>
-	</ion-buttons>
-	
-</ion-footer>

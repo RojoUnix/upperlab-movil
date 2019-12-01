@@ -14,11 +14,11 @@
 		</h1>	
 		
 		
-		<form [formGroup]="formulario" (ngSubmit)="enviarFormulario(); formulario.reset()">
+		<!-- <form [formGroup]="formulario" (ngSubmit)="enviarFormulario(); formulario.reset()"> -->
 			<ion-item>
 				<ion-label position="floating">Correo</ion-label>
-				<ion-input type="email" 
-							formControlName="correo" 
+				<ion-input type="email"
+							[(ngModel)]="correo"
 							class="form-control"
 							required> 
 				</ion-input>
@@ -28,14 +28,15 @@
 				<ion-label position="floating">Contraseña</ion-label>
 				<ion-input type="password" 
 							class="form-control"
-							formControlName="contrasena" 
-							required (keyup.enter)="enviarFormulario()"> 
+							[(ngModel)]="contrasena"
+							(keyup.enter)="enviarFormulario()"
+							required>
 				</ion-input>
 			</ion-item>
 
 			<ion-button expand="full" color="rojo" type="submit">Ingresar</ion-button>
 			
-		</form>
+		<!-- </form> -->
 	</div>
 </ion-content>
 

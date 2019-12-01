@@ -13,6 +13,7 @@ import { SimpleSelectComponent } from './simple-select/simple-select.component';
 import { CamelToStringPipe } from './pipes/camel-to-string.pipe';
 import { DotdotdotPipe } from './pipes/dotdotdot.pipe';
 import { EquipoEstadoPipe } from './pipes/equipo-estado.pipe';
+import { MessageComponent } from './message/message.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { EquipoEstadoPipe } from './pipes/equipo-estado.pipe';
 		ListaTicketsComponent,
 		MenuComponent,
 		ChatComponent,
+		MessageComponent,
 		SolicitudComponent,
 		SolicitudesComponent,
 		SimpleSelectComponent
