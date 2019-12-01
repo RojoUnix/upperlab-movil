@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { MenuService } from './services/menu.service';
 
 @Component({
 	selector: 'app-root',
@@ -12,12 +11,8 @@ import { MenuService } from './services/menu.service';
 })
 export class AppComponent {
 
-	showMenu: boolean = true;
-
-	constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private menuService: MenuService ) {
+	constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar ) {
 		this.initializeApp();
-
-		this.menuService.getShowMenuEmitter().subscribe( show => this.showMenu = show );
 	}
 	
 	initializeApp() {

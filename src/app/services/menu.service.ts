@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Injectable({
 	providedIn: 'root'
@@ -6,9 +7,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 export class MenuService {
 	
 	private updateMenuEmitter: EventEmitter<void> = new EventEmitter();
-	private showMenuEmitter: EventEmitter<boolean> = new EventEmitter();
 	
-	constructor() { }
+	constructor( private menuCtrl: MenuController ) { }
 	
 	/**
 	 * Mandarle al menú una notificación para que actualice sus datos.
@@ -22,12 +22,13 @@ export class MenuService {
 	}
 
 
+	/**
+	 * Habilita o deshabilita el menu.
+	 * 
+	 * @param show Valor booleano para saber si se quiere mostrar o no.
+	 */
 	showMenu( show: boolean ) {
-		this.showMenuEmitter.emit( show );
+		this.menuCtrl.enable(show, 'first');
 	}
 
-	getShowMenuEmitter(): EventEmitter<boolean> {
-		return this.showMenuEmitter;
-	}
-	
 }
