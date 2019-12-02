@@ -54,13 +54,10 @@ export class ConversacionPage implements OnInit, OnDestroy {
 			} else if ( this.authService.isAlumno() ) {
 				this.getTicketsMatricula();
 			}
-			setTimeout( () => {
-				this.content.scrollToBottom();
-			}, 1200);
 		} else {
 			this.entrarASalasDeTickets();
 			this.mostrarMensajes();
-			this.content.scrollToBottom();
+			this.scrollToBottom(0);
 		}
 	}
 
@@ -78,6 +75,7 @@ export class ConversacionPage implements OnInit, OnDestroy {
 				});
 				this.entrarASalasDeTickets();
 				this.mostrarMensajes();
+				this.scrollToBottom(40);
 			}
 		});
 	}
@@ -93,8 +91,15 @@ export class ConversacionPage implements OnInit, OnDestroy {
 				this.entrarASalasDeTickets();
 				// Ya están consultados, ya podemos mostrar los mensajes.
 				this.mostrarMensajes();
+				this.scrollToBottom(40);
 			}
 		});
+	}
+
+	scrollToBottom( ms: number ) {
+		setTimeout( () => {
+			this.content.scrollToBottom();
+		}, ms);
 	}
 	
 	mostrarMensajes(): void {
@@ -144,9 +149,7 @@ export class ConversacionPage implements OnInit, OnDestroy {
 	agregarMensajeUI( message: MensajeInterface ) {
 		this.chatService.ticketsMaster[message.sala].chat.push( message );
 
-		setTimeout( () => {
-			this.content.scrollToBottom();
-		}, 40);
+		this.scrollToBottom(40);
 		
 		console.log('Actualizando chat...');
 		if ( message.matricula !== MATRICULA_WOLFBOT ) {
@@ -199,9 +202,7 @@ export class ConversacionPage implements OnInit, OnDestroy {
 
 	agregarMensaje( message: MensajeInterface ) {
 		this.chatService.ticketsMaster[message.sala].chat.push( message );
-		setTimeout( () => {
-			this.content.scrollToBottom();
-		}, 40);
+		this.scrollToBottom(40);
 	}
 
 	ngOnDestroy() {
