@@ -29,11 +29,10 @@
 		<ion-list>
 			
 			<ion-menu-toggle *ngFor="let opcion of opciones | async">
-				<ion-item (click)="irA(opcion.link)" lines="none" [ngClass]="{'active-item': isTicketsRoute()}">
-					<ion-icon slot="start" [src]="'assets/icon/'+opcion.icono" [ngClass]="{'active-item': isTicketsRoute()}"></ion-icon>
+				<ion-item (click)="irA(opcion.link)" lines="none" [ngClass]="{'active-item': activeRoute(opcion.link)}">
+					<ion-icon slot="start" [src]="'assets/icon/'+opcion.icono" [ngClass]="{'active-item': activeRoute(opcion.link)}"></ion-icon>
 					<ion-label>{{ opcion.nombre }}</ion-label>
 				</ion-item>
-				
 			</ion-menu-toggle>
 			
 			<ion-item-divider></ion-item-divider>

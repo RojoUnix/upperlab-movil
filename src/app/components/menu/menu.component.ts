@@ -40,8 +40,8 @@ export class MenuComponent implements OnInit {
 		this.navCtrl.navigateRoot(url);
 	}
 
-	isTicketsRoute(): boolean {
-		return this.router.url.startsWith('/tickets');
+	activeRoute( url: any[] ): boolean {
+		return this.router.url.startsWith(url.join('/'));
 	}
 	
 	update() {
