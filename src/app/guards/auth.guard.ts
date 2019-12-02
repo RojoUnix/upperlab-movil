@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Storage } from '@ionic/storage';
@@ -9,12 +9,12 @@ import { MenuService } from '../services/menu.service';
 })
 export class AuthGuard implements CanActivate {
 
-	constructor( private auth: AuthService, private router: Router, private ngZone: NgZone, private storage: Storage, private menuService: MenuService ) {}
+	constructor( private auth: AuthService, private router: Router, private storage: Storage, private menuService: MenuService ) {}
 
 	canActivate(): Promise<boolean> {
 
 		return new Promise( (resolve, reject) => {
-			this.auth.afAuth.auth.onAuthStateChanged( user => this.ngZone.run(() => {
+			this.auth.afAuth.auth.onAuthStateChanged( user => {
 				if ( user ) {
 					// El usuario inició sesión
 					console.log('%c AuthGuard -> Está Autenticado', 'color: blue');
@@ -54,7 +54,7 @@ export class AuthGuard implements CanActivate {
 					this.router.navigate(['/login']);
 					return resolve(false);
 				}
-			}));
+			});
 		});
 
 		// return this.auth.estaAutenticado();
