@@ -41,20 +41,20 @@ export class NuevoTicketPage implements OnInit {
 
 	ngOnInit() {
 		this.formulario = new FormGroup({
-			titulo: 		new FormControl('', Validators.required),
-			descripcion: 	new FormControl('', Validators.required),
-			componentes: 	new FormArray([
-							new FormControl(false),
-							new FormControl(false),
-							new FormControl(false),
-							new FormControl(false),
-							new FormControl(false)
-							]),
-			otro: 			new FormControl(''),
-			equipo:			new FormControl('', Validators.required),
-			urgencia:		new FormControl('', Validators.required),
-			tipo: 			new FormControl('', Validators.required),
-			incidenciaComun:new FormControl('')
+			titulo: 		 new FormControl('', Validators.required),
+			descripcion: 	 new FormControl('', Validators.required),
+			componentes: 	 new FormArray([
+							 new FormControl(false),
+							 new FormControl(false),
+							 new FormControl(false),
+							 new FormControl(false),
+							 new FormControl(false)
+							 ]),
+			otro: 			 new FormControl(''),
+			equipo:			 new FormControl('', Validators.required),
+			urgencia:		 new FormControl('', Validators.required),
+			tipo: 			 new FormControl('', Validators.required),
+			incidenciaComun: new FormControl('')
 			
 		});
 

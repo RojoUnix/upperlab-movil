@@ -15,8 +15,6 @@ import { Clasificaciones } from '../../shared/interfaces/interfaces';
 })
 export class ListaTicketsComponent implements OnInit {
 	esAdmin: boolean;
-	esAlumno: boolean;
-	esProfesor: boolean;
 	
 	clasificacionesMaster: Clasificaciones;
 	
@@ -32,12 +30,10 @@ export class ListaTicketsComponent implements OnInit {
 		
 		if ( this.authService.isAlumno() ) {
 			// Consultando tickets para Alumno o Profesor
-			this.esAlumno = true;
 			this.getTicketsMatricula();
 			
 		} else if ( this.authService.isProfesor() ) {
 			// Consultando tickets para Alumno o Profesor
-			this.esProfesor = true;
 			this.getTicketsMatricula();
 
 		} else if ( this.authService.isAdmin() ) {
