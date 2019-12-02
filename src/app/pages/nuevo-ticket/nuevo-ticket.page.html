@@ -68,7 +68,7 @@
 			<ion-list-header>Componentes con fallas</ion-list-header>
 			<ion-item *ngFor="let componente of formulario.controls['componentes']['controls']; let i = index">
 				<ion-checkbox slot="start" [formControl]="componente"></ion-checkbox>
-				<ion-label>{{ opcionesCheckbox[i] }}</ion-label>
+				<ion-label>{{ opcionesCheckbox[i].name }}</ion-label>
 			</ion-item>
 
 			<!-- INPUT - Otros -->

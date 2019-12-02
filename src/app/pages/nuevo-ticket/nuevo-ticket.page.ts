@@ -3,12 +3,15 @@ import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { TicketModel } from '../../models/ticket.model';
 import { AuthService } from '../../services/auth.service';
 import { TicketsService } from '../../services/tickets.service';
-import { Router } from '@angular/router';
 import { AsignacionModel } from '../../models/alumno.model';
 import { AlertService } from '../../services/alert.service';
-import { SelectOptions, Clasificaciones, IncidenciaComunItem, TipoTicketItem, UrgenciaItem, SelectOptionsNumber } from '../../shared/interfaces/interfaces';
+import { 
+	SelectOptions, Clasificaciones, IncidenciaComunItem, TipoTicketItem,
+	UrgenciaItem, SelectOptionsNumber 
+} from '../../shared/interfaces/interfaces';
 import { ESTADOS_TICKET } from '../../config/config';
 import { ClasificacionesService } from '../../services/clasificaciones.service';
+import { NavController, AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -28,16 +31,16 @@ export class NuevoTicketPage implements OnInit {
 	formulario: FormGroup;
 	ticket: TicketModel;
 
-	opcionesCheckbox: string[] = [
-		'teclado',
-		'pantalla',
-		'raton',
-		'cableEthernet',
-		'software',
+	opcionesCheckbox: SelectOptions[] = [
+		{ value: 'teclado', 		name: 'Teclado' 	  },
+		{ value: 'pantalla', 		name: 'Pantalla' 	  },
+		{ value: 'raton', 			name: 'Ratón' 		  },
+		{ value: 'cableEthernet', 	name: 'Cable Ethernet' },
+		{ value: 'software', 		name: 'Software' 	  }
 	];
 
 
-	constructor( private authService: AuthService, private clasificacionesService: ClasificacionesService, private ticketsService: TicketsService, private router: Router, private alertService: AlertService) { }	
+	constructor( private authService: AuthService, private clasificacionesService: ClasificacionesService, private ticketsService: TicketsService, private alertService: AlertService,private navCtrl: NavController ) { }	
 
 	ngOnInit() {
 		this.formulario = new FormGroup({
@@ -135,7 +138,7 @@ export class NuevoTicketPage implements OnInit {
 
 			// Recorrer los checkboxes de componentes.
 			(this.formulario.get('componentes') as FormArray).controls.forEach( (control, i) => {
-				const componente = this.opcionesCheckbox[i]; // e.g. 'raton'
+				const componente = this.opcionesCheckbox[i].value; // e.g. 'raton'
 				this.ticket.dispositivos[componente] = control.value;  // e.g. ticket.disp.raton = true
 			});
 
@@ -149,7 +152,7 @@ export class NuevoTicketPage implements OnInit {
 			this.ticket.equipo.nombre = this.nombreDeEquipo( this.ticket.equipo.id );
 			this.ticket.timestamp = 	new Date().toDateString();
 			
-			//Clasificaciones
+			// Clasificaciones
 			this.ticket.urgencia = 		this.obtenerUrgenciaItem(
 				+this.formulario.get('urgencia').value);
 			this.ticket.tipo = this.obtenerIncidenciaComunItem(
@@ -161,14 +164,14 @@ export class NuevoTicketPage implements OnInit {
 			console.log(this.ticket);
 
 			this.levantarTicket();
-		}else{
+		} else {
 			// console.log('Formulario');
 			// console.log(this.formulario);
 			// this.alertService.mostrarError('Error ', 'No se levanto el Ticket');
 		}
 	}
 
-	obtenerTipoDeTicketItem( tipoID: number): TipoTicketItem{
+	obtenerTipoDeTicketItem( tipoID: number): TipoTicketItem {
 		return this.clasificaciones.tipos.items.filter( tipo => tipo.id === tipoID )[0];
 	}
 
@@ -179,7 +182,7 @@ export class NuevoTicketPage implements OnInit {
 		return { id: 0, titulo: '', tipo: 0 };
 	}
 
-	obtenerUrgenciaItem( urgenciaID: number): UrgenciaItem{
+	obtenerUrgenciaItem( urgenciaID: number): UrgenciaItem {
 		return this.clasificaciones.urgencias.items.filter( urgencia => urgencia.id === urgenciaID)[0];
 	}
 
@@ -191,8 +194,7 @@ export class NuevoTicketPage implements OnInit {
 		console.log('Levantando ticket ... ', this.ticket);
 		this.ticketsService.addTicket( this.ticket ).subscribe( respuesta => {
 			this.alertService.success('Exito', 'Ticket Levantado exitosamente').then( () => {
-				this.router.navigate(['tickets']);
-				// TODO: Poner pop para quitar el page de encima.
+				this.navCtrl.navigateRoot('/tickets');
 			});
 
 		}, err => {
@@ -218,7 +220,7 @@ export class NuevoTicketPage implements OnInit {
 			const horaFinal = asignacion.clase.horaFinal;
 			
 			// Agregamos el equipo de esta asignación a las opciones del select.
-			if( !this.equipoYaPusheado(asignacion.equipo.id)){
+			if ( !this.equipoYaPusheado(asignacion.equipo.id) ) {
 				this.equipos.push({
 					value: asignacion.equipo.id,
 					name: `${ asignacion.equipo.nombre } - ${ asignacion.clase.laboratorio.toUpperCase() }`// PC-01 - LS1 
@@ -286,11 +288,4 @@ export class NuevoTicketPage implements OnInit {
 			
 		}
 	}
-
-	cancelar(){
-		this.router.navigate(['/alumno/tickets']);
-		// TODO: Poner pop para quitar el page de encima.
-
-	}
-
 }
