@@ -7,6 +7,7 @@ import { ChatService } from '../../services/chat.service';
 import { ActivatedRoute } from '@angular/router';
 import { MATRICULA_WOLFBOT } from '../../config/config';
 import { IonContent } from '@ionic/angular';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
 	selector: 'app-conversacion',
@@ -26,7 +27,7 @@ export class ConversacionPage implements OnInit, OnDestroy {
 	getMessagesSub: Subscription;
 
 	
-	constructor( public ticketsService: TicketsService, public authService: AuthService, public chatService: ChatService, public activatedRoute: ActivatedRoute ) { }
+	constructor( public ticketsService: TicketsService, public authService: AuthService, public chatService: ChatService, public activatedRoute: ActivatedRoute, private menuService: MenuService ) { }
 	
 	async ngOnInit() {
 
@@ -61,8 +62,10 @@ export class ConversacionPage implements OnInit, OnDestroy {
 			this.mostrarMensajes();
 			this.content.scrollToBottom();
 		}
+	}
 
-
+	ionViewWillLeave() {
+		this.menuService.showMenu('second', false);
 	}
 
 	getTicketsMatricula() {
@@ -96,6 +99,11 @@ export class ConversacionPage implements OnInit, OnDestroy {
 	
 	mostrarMensajes(): void {
 		this.ticketSeleccionado = this.chatService.ticketsMaster[this.idTicket];
+
+		// Actualizar los detalles del ticket en el menu lateral derecho.
+		this.menuService.updateTicket(this.ticketSeleccionado);
+		// Habilitar el menú lateral derecho.
+		this.menuService.showMenu('second', true);
 	}
 
 	enviarMensaje() {

@@ -14,6 +14,7 @@ import { CamelToStringPipe } from './pipes/camel-to-string.pipe';
 import { DotdotdotPipe } from './pipes/dotdotdot.pipe';
 import { EquipoEstadoPipe } from './pipes/equipo-estado.pipe';
 import { MessageComponent } from './message/message.component';
+import { MenuDetallesComponent } from './menu-detalles/menu-detalles.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { MessageComponent } from './message/message.component';
 		HeaderComponent,
 		ListaTicketsComponent,
 		MenuComponent,
+		MenuDetallesComponent,
 		ChatComponent,
 		MessageComponent,
 		SolicitudComponent,
@@ -47,6 +49,7 @@ import { MessageComponent } from './message/message.component';
 		EquipoEstadoPipe,
 		IonicModule,
 		MenuComponent,
+		MenuDetallesComponent,
 		HeaderComponent,
 		SimpleSelectComponent,
 		ListaTicketsComponent,

@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
 	
 	ngOnInit() {
 		// No mostrar el menú en el LoginPage.
-		this.menuService.showMenu(false);
+		this.menuService.showMenu('first', false);
 	}
 
 	// Formulario
@@ -42,10 +42,10 @@ export class LoginPage implements OnInit {
 				// Guardar token
 				await this.storage.set('token', idTokenResult.token);
 				
-				this.menuService.showMenu(true);
+				this.menuService.showMenu('first', true);
 
 				if ( rol === ROLES.SUPERADMINISTRADOR ) {
-					this.menuService.showMenu(false);
+					this.menuService.showMenu('first', false);
 					this.alertService.mostrarError('Módulo no implementado', 'Pronto el Super administrador podrá ingresar...');
 				} else if ( rol === ROLES.ADMINISTRADOR || rol === ROLES.PROFESOR ) {
 					this.navCtrl.navigateRoot('/tickets');
