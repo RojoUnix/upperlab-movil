@@ -14,6 +14,8 @@ import { Clasificaciones } from '../../shared/interfaces/interfaces';
 	styleUrls: ['./lista-tickets.component.scss'],
 })
 export class ListaTicketsComponent implements OnInit {
+	
+	cargando: boolean = true;
 	esAdmin: boolean;
 	
 	clasificacionesMaster: Clasificaciones;
@@ -28,14 +30,10 @@ export class ListaTicketsComponent implements OnInit {
 		
 		this.consultarClasificaciones();
 		
-		if ( this.authService.isAlumno() ) {
+		if ( this.authService.isAlumno() || this.authService.isProfesor() ) {
 			// Consultando tickets para Alumno o Profesor
 			this.getTicketsMatricula();
 			
-		} else if ( this.authService.isProfesor() ) {
-			// Consultando tickets para Alumno o Profesor
-			this.getTicketsMatricula();
-
 		} else if ( this.authService.isAdmin() ) {
 			// Consultando tickets para Administrador (Todos los tickets)
 			this.esAdmin = true;
@@ -44,6 +42,7 @@ export class ListaTicketsComponent implements OnInit {
 	}
 	
 	getTicketsMatricula() {
+		this.cargando = true;
 		this.ticketService.getTicketsPorMatricula( this.authService.usuario.email.split('@')[0] ).subscribe( respuesta => {
 			if ( respuesta.ok ) {
 				const ticketHolder: TicketModel[] = respuesta.tickets;
@@ -51,6 +50,7 @@ export class ListaTicketsComponent implements OnInit {
 					this.chatService.ticketsMaster[ticket.id] = new TicketModel (ticket);
 					this.tickets.push( new TicketModel(ticket) );
 				});
+				this.cargando = false;
 			}
 		});
 	}
@@ -78,6 +78,7 @@ export class ListaTicketsComponent implements OnInit {
 	
 	
 	getTicketsAdmin() {
+		this.cargando = true;
 		this.ticketService.getTickets().subscribe(respuesta => {
 			
 			if ( respuesta.ok ) {
@@ -87,7 +88,7 @@ export class ListaTicketsComponent implements OnInit {
 					this.chatService.ticketsMaster[ticket.id] = new TicketModel(ticket);
 					this.tickets.push( new TicketModel(ticket) );
 				});
-				
+				this.cargando = false;
 			}
 		});
 	}
