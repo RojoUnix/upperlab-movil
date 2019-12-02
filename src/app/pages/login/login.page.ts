@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ROLES } from 'src/app/config/config';
 import { Storage } from '@ionic/storage';
 import { AlertService } from '../../services/alert.service';
@@ -26,19 +25,10 @@ export class LoginPage implements OnInit {
 	ngOnInit() {
 		// No mostrar el menú en el LoginPage.
 		this.menuService.showMenu(false);
-
-		// this.formulario = new FormGroup({
-		// 	correo: new FormControl('', [
-		// 	Validators.required,
-		// 	// tslint:disable-next-line: quotemark
-		// 	Validators.pattern("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
-		// 	]),
-		// 	contrasena: new FormControl('', Validators.required)
-		// });
 	}
 
 	// Formulario
-	enviarFormulario() {	
+	enviarFormulario() {
 
 		this.authServicio.iniciarSesion(this.correo, this.contrasena).then( (userCredential: auth.UserCredential) => {
 	
@@ -50,11 +40,7 @@ export class LoginPage implements OnInit {
 				this.authServicio.rol = rol;
 
 				// Guardar token
-				console.log('Guardando token...');
-				console.log(idTokenResult.token);
 				await this.storage.set('token', idTokenResult.token);
-				console.log('Guardado');
-			
 				
 				this.menuService.showMenu(true);
 

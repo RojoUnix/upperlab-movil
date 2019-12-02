@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
 import { LoginGuard } from '../../guards/login.guard';
+import { FormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
 		CommonModule,
 		RouterModule.forChild(routes),
 		IonicModule,
-		ComponentsModule
+		FormsModule
 	],
 	declarations: [LoginPage]
 })
