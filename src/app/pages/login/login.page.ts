@@ -47,10 +47,12 @@ export class LoginPage implements OnInit {
 				if ( rol === ROLES.SUPERADMINISTRADOR ) {
 					this.menuService.showMenu('first', false);
 					this.alertService.mostrarError('Módulo no implementado', 'Pronto el Super administrador podrá ingresar...');
-				} else if ( rol === ROLES.ADMINISTRADOR || rol === ROLES.PROFESOR ) {
+				} else if ( rol === ROLES.ADMINISTRADOR ) {
 					this.navCtrl.navigateRoot('/tickets');
 				} else if ( rol === ROLES.ALUMNO ) {
 					this.navCtrl.navigateRoot('/asistencia');
+				} else if ( rol === ROLES.PROFESOR ) {
+					this.alertService.mostrarError('Módulo no implementado', 'Pronto el Profesor podrá ingresar...');
 				}
 			});
 			

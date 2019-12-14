@@ -27,7 +27,8 @@ export class AuthService {
 	// Función para Iniciar Sesión
 	iniciarSesion( correo: string, contrasena: string ) {
 		console.log(correo);
-		
+		this.storage.set('correo', correo);
+		this.storage.set('contrasena', contrasena);
 		return this.afAuth.auth.signInWithEmailAndPassword( correo, contrasena );
 	}
 	

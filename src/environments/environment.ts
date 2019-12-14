@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 // export const URL_SERVICIOS = 'http://localhost:3000'; // <- Probar tickets y solicitudes
-export const URL_SERVICIOS = 'https://app-upperlab.herokuapp.com'; //<-- Probar con el sistema web
-// export const URL_SERVICIOS = 'http://192.168.43.88:3000'; // <-- Probar Asistencia
+// export const URL_SERVICIOS = 'https://app-upperlab.herokuapp.com'; //<-- Probar con el sistema web
+export const URL_SERVICIOS = 'http://192.168.1.74:3000'; // <-- Probar Asistencia
 
 // NG SERVE  | IONIC SERVE
 
