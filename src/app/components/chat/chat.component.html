@@ -1,0 +1,15 @@
+
+<!-- <ion-content> -->
+	
+	<br>
+
+	<app-message *ngFor="let mensaje of chatService.ticketsMaster[ticketSeleccionado?.id]?.chat; let i = index" 
+		[mensaje]="mensaje" 
+		[propio]="matricula === mensaje.matricula"
+		[siguiente]="siguienteMensaje(i)"
+		[anterior]="mensajeAnterior(i)">
+	</app-message>
+	
+	<!-- <div class="wolfBot" *ngIf="mensaje.nombre === 'Wolf Bot'"> -->
+	
+<!-- </ion-content> -->

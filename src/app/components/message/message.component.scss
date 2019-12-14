@@ -1,0 +1,65 @@
+// .usuario {
+//     display: flex;
+//     height: auto;
+//     width: 70%;
+//     min-width: 370px;
+//     border-radius: 5px;
+//     align-items:stretch;
+//     background-color: rgb(40, 121, 254);
+//     box-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
+// }
+
+// .visita {
+//     display: flex;
+//     height: auto;
+//     width: 70%;
+//     min-width: 370px;
+//     border-radius: 5px;
+//     align-items:stretch;
+//     background-color: rgb(240, 245, 163);
+//     box-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
+// }
+
+ion-col {
+	padding: 0px 0px 0px 5px;
+}
+
+
+.mas-padding {
+	padding: 1px 0px 20px 0px;
+}
+
+.poco-padding {
+	padding: 0px 0px 0px 0px;
+}
+
+.mensaje {
+	display: inline-block;
+	border-radius: 25px;
+	padding: 8px 15px 8px 15px;
+}
+
+.propio {
+	background-color: #2879FE;
+	color: white;
+}
+
+.amigo {
+	background-color: #CFD8DD;
+	color: black;
+}
+
+.mensaje-avatar {
+	width:100%;
+	height : 100%;
+	max-width: 36px;  //any size
+	max-height: 36px; //any size 
+}
+
+.hora {
+	font-size: 0.8rem;
+}
+
+.transparente {
+	opacity: 0;
+}

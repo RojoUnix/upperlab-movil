@@ -1,0 +1,58 @@
+<app-header titulo="Levantar Solicitud"></app-header>
+
+
+<ion-content padding id="principal">
+	<form [formGroup]="formulario">
+		
+		<!-- SELECT - CLASE DEL PROFESOR -->
+		<ion-item>
+			<app-simple-select [formulario]="formulario" label="clase" [sinLabel]="false" [small]="false" [opciones]="clasesOptions" [opcionGeneroMasculino]="false" [required]="true"></app-simple-select>
+		</ion-item>
+	
+		<!-- SELECT - LABORATORIO -->
+		<ion-item>
+			<app-simple-select [formulario]="formulario" label="laboratorio" [opciones]="laboratoriosOptions" [opcionGeneroMasculino]="true" [required]="true" [formularioEnviado$]="formularioEnviado$.asObservable()" (cambioDeOpcion)="cambiarDiasDisponibles()"></app-simple-select>
+		</ion-item>
+		
+		<ion-item>
+			<div>
+				<input type="checkbox" formControlName="cambioDeLaboratorio" class="form-check-input">
+				<label class="form-check-label">¿Está dispuesto a un cambio de laboratorio en caso de no estar disponible?</label>
+			</div>
+		</ion-item>
+		
+		<ion-item>
+			<div>
+				<input type="checkbox" formControlName="especificarHorario" class="form-check-input" (change)="cambiarValidatorsDelHorario()">
+				<label class="form-check-label">Especificar horario</label>
+			</div>
+		</ion-item>
+	
+		<div *ngIf="formulario.get('especificarHorario').value">
+			<!-- SELECT - DIAS DISPONIBLES -->
+			<ion-item>
+				<app-simple-select [formulario]="formulario" label="dia" labelAcentuado="Día" [opciones]="diasOptions" [opcionGeneroMasculino]="true" [required]="formulario.get('especificarHorario').value" [formularioEnviado$]="formularioEnviado$.asObservable()" (cambioDeOpcion)="cambiarHorasIniciales()"></app-simple-select>
+			</ion-item>
+	
+			<!-- SELECT - HORA INICIAL -->
+			<ion-item>
+				<app-simple-select [formulario]="formulario" label="horaInicial" [opciones]="horasInicialesOptions" [opcionGeneroMasculino]="false" [required]="formulario.get('especificarHorario').value" [formularioEnviado$]="formularioEnviado$.asObservable()" (cambioDeOpcion)="cambiarHorasFinales()"></app-simple-select>
+			</ion-item>
+			
+			<!-- SELECT - HORA FINAL -->
+			<ion-item>
+				<app-simple-select [formulario]="formulario" label="horaFinal" [opciones]="horasFinalesOptions" [opcionGeneroMasculino]="false" [required]="formulario.get('especificarHorario').value" [formularioEnviado$]="formularioEnviado$.asObservable()" (cambioDeOpcion)="calcularDuracionDeClase()"></app-simple-select>
+			</ion-item>
+	
+			<span *ngIf="formulario.get('horaFinal').value !== ''">
+				<strong>Duración de clase: </strong> {{ duracionDeClase/60+' hora' }}{{ (duracionDeClase/60) > 1 ? 's' : ''}}
+			</span>
+		</div>
+		<br>
+
+		<ion-fab-button class="btn-levantar" type="submit" (click)="levantarSolicitud()">
+			<ion-icon name="send"></ion-icon>
+		</ion-fab-button>
+	
+	</form>	
+</ion-content>

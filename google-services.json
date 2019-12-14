@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "952741181232",
+    "firebase_url": "https://upperlab-e81d9.firebaseio.com",
+    "project_id": "upperlab-e81d9",
+    "storage_bucket": "upperlab-e81d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952741181232:android:ed60cbd94cbf006b7afaf5",
+        "android_client_info": {
+          "package_name": "mx.edu.upemor.upperlab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952741181232-kt2r74p79khe7qgoc6avnt553hkvn708.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuYjjWCBtyrZvjf0M1m3zdLW8Ggea3IY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952741181232-kt2r74p79khe7qgoc6avnt553hkvn708.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

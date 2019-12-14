@@ -1,0 +1,31 @@
+<!-- Tipo [SELECT] -->
+<ion-item>
+	<div class="form-row" [ngClass]="{'text-danger': selectInvalido()}" [formGroup]="formulario">
+		<div class="col mb-3">
+			<label *ngIf="!sinLabel"> {{ labelAcentuado ? labelAcentuado : (label | camelToString) }} {{ required ? '*' : ''}}</label>
+			<select [ngClass]="{'is-invalid': selectInvalido(), 'form-control-sm': small}" [formControlName]="label" class="form-control" [required]="required"
+				(change)="cambioDeOpcion.emit()">
+				<option *ngIf="!placeholder" value="">Seleccionar {{  labelAcentuado ? (labelAcentuado | lowercase) : (label | camelToString)  }}...</option>
+				<option *ngIf="placeholder" value="">{{ placeholder }}</option>
+				<option [value]="opcion.value" *ngFor="let opcion of opciones">{{ opcion.name }}</option>
+			</select>
+			<small class="form-text" *ngIf="selectErrores()">
+				Seleccione {{ opcionGeneroMasculino ?  'un' : 'una' }} {{ labelAcentuado ? (labelAcentuado | lowercase) : (label | camelToString | lowercase)  }}.
+			</small>
+		</div>
+	</div>
+</ion-item>
+
+
+<!-- 
+<ion-item class="form-row" [ngClass]="{'text-danger': selectInvalid()}" [formGroup]="formulario">
+	<label *ngIf="!sinLabel"> {{labelAcentuado ? labelAcentuado: (label | camelToString )}} {{required ? '*' : ''}}</label>
+	<ion-select [ngClass]="{'is-invalid': selectInvalido(), 'form-control-sm':small }" [formControlName]="label" class="form-contro" [required]="required" (change)="cambioDeOpcion.emit()">
+		<ion-select-option *ngIf="!placeholder" 	value=""> Sleccionar {{ labelAcentuado? (labelAcentuado | lowercase) : (label | camelToString) }} ... </ion-select-option>
+		<ion-select-option *ngIf="placeholder" 		value=""> {{ placeholder }} </ion-select-option>
+		<ion-select-option [value]="opcion.value" 	*ngFor="let opcion of opciones"> {{ opcion.name }} </ion-select-option>
+	</ion-select>
+	<label class="form-text" *ngIf="selectErrores()">
+		Seleccione {{ opcionGeneroMasculino ?  'un' : 'una' }} {{ labelAcentuado ? (labelAcentuado | lowercase) : (label | camelToString | lowercase)  }}.
+	</label>
+</ion-item> -->

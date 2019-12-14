@@ -1,0 +1,29 @@
+ion-header {
+    height: 148px;
+    background: var(--ion-color-morado);
+    padding-left: 16px;
+}
+
+ion-avatar {
+    margin-top: 10px;
+}
+
+#icon-bell {
+    margin-top: 10px;
+}
+
+#fila-up {
+    height: 100px;
+}
+
+#fila-correo {
+    height: 40px;
+}
+
+#label-correo {
+    font-size: 1.1em;
+}
+
+.active-item {
+    color: var(--ion-color-primary);
+}

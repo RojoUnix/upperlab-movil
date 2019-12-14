@@ -1,0 +1,12 @@
+[
+	{
+		"nombre": "Asistencia",
+		"icono": "inbox.svg",
+		"link": ["/asistencia"]
+	},
+	{
+		"nombre": "Tickets",
+		"icono": "ticket.svg",
+		"link": ["/tickets"]
+	}
+]

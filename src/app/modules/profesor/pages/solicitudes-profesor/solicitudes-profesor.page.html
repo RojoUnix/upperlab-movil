@@ -1,0 +1,30 @@
+<app-header titulo="Lista de Solicitudes"></app-header>
+
+<ion-content id="principal" padding>
+
+	<ion-card *ngFor="let solicitud of solicitudes">
+		<ion-card-title>
+				<strong>Clase:</strong> {{ solicitud.clase ? solicitud.clase.claseID : solicitud}}
+		</ion-card-title>
+		<ion-card-subtitle>
+			{{solicitud.usuario.nombre + ' ' + solicitud.usuario.apellidoP}}
+		</ion-card-subtitle>
+		<ion-card-content>
+			
+				{{solicitud.laboratorio.clave | uppercase}}
+				{{ solicitud.horaInicial/60+':00' }}-{{ solicitud.horaFinal/60+':00'}}
+				Cambio de Laboratorio: {{solicitud.cambioDeLaboratorio ? 'SÍ' : 'NO'}}
+				Fecha de solicitud: {{solicitud.timestamp}}
+		</ion-card-content>
+	</ion-card>
+		
+	<!-- <div [ngClass]="{'bg-azul-firebase': solicitudNueva(), 'bg-danger': solicitudRechazada(), 'bg-secondary': solicitudCancelada(), 'bg-success': solicitudAceptada()}" style="min-width: 50px; max-width: 50px;">
+		</div> -->
+
+	
+	
+	<ion-fab-button class="btn-levantar" expand="full" color="primary" [routerLink]="['/profesor/solicitud/levantar']">
+		<ion-icon name="add"></ion-icon>
+	</ion-fab-button>
+
+</ion-content>

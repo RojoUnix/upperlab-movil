@@ -13,19 +13,46 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "~8.1.2",
+    "@angular/cdk": "~8.1.4",
     "@angular/common": "~8.1.2",
     "@angular/compiler": "~8.1.2",
     "@angular/core": "~8.1.2",
+    "@angular/fire": "^5.2.3",
     "@angular/forms": "~8.1.2",
+    "@angular/material": "^8.2.3",
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
-    "@ionic-native/core": "^5.0.0",
-    "@ionic-native/splash-screen": "^5.0.0",
-    "@ionic-native/status-bar": "^5.0.0",
-    "@ionic/angular": "^4.7.1",
-    "core-js": "^2.5.4",
-    "rxjs": "~6.5.1",
+    "@ionic-native/barcode-scanner": "^5.17.1",
+    "@ionic-native/core": "^5.17.1",
+    "@ionic-native/firebase": "^5.17.1",
+    "@ionic-native/firebase-messaging": "^5.17.1",
+    "@ionic-native/http": "^5.17.1",
+    "@ionic-native/splash-screen": "^5.17.1",
+    "@ionic-native/status-bar": "^5.17.1",
+    "@ionic/angular": "^4.11.5",
+    "@ionic/storage": "^2.2.0",
+    "@types/socket.io-client": "^1.4.32",
+    "angularfire2": "^5.2.3",
+    "cordova-android": "8.1.0",
+    "cordova-plugin-advanced-http": "^2.2.0",
+    "cordova-plugin-androidx": "^1.0.2",
+    "cordova-plugin-androidx-adapter": "^1.1.0",
+    "cordova-plugin-file": "^6.0.2",
+    "cordova-plugin-firebase-messaging": "^3.0.1",
+    "cordova-plugin-firebasex": "^7.0.1",
+    "cordova-sqlite-storage": "^3.4.0",
+    "cordova-support-android-plugin": "^1.0.1",
+    "cordova-support-google-services": "^1.3.2",
+    "core-js": "^2.6.10",
+    "firebase": "^6.6.2",
+    "hammerjs": "^2.0.8",
+    "native-run": "^0.2.9",
+    "phonegap-plugin-barcodescanner": "^8.1.0",
+    "rxjs": "^6.5.3",
+    "rxjs-compat": "^6.5.3",
+    "socket.io-client": "^2.3.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },
@@ -40,9 +67,15 @@
     "@angular/language-service": "~8.1.2",
     "@ionic/angular-toolkit": "~2.0.0",
     "@types/jasmine": "~3.3.8",
-    "@types/jasminewd2": "~2.0.3",
+    "@types/jasminewd2": "^2.0.8",
     "@types/node": "~8.9.4",
-    "codelyzer": "^5.0.0",
+    "codelyzer": "^5.2.0",
+    "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-ionic-keyboard": "^2.2.0",
+    "cordova-plugin-ionic-webview": "^4.1.3",
+    "cordova-plugin-splashscreen": "^5.0.3",
+    "cordova-plugin-statusbar": "^2.4.3",
+    "cordova-plugin-whitelist": "^1.3.4",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -55,5 +88,33 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-sqlite-storage": {},
+      "phonegap-plugin-barcodescanner": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-advanced-http": {
+        "OKHTTP_VERSION": "3.10.0"
+      },
+      "cordova-plugin-firebase-messaging": {
+        "FIREBASE_CORE_VERSION": "17.0.+",
+        "FIREBASE_MESSAGING_VERSION": "19.0.+",
+        "ANDROIDX_CORE_VERSION": "1.0.+"
+      },
+      "cordova-plugin-firebasex": {}
+    },
+    "platforms": [
+      "android"
+    ]
+  }
 }

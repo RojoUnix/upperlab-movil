@@ -1,0 +1,50 @@
+
+<ion-item *ngIf="mensaje.mensaje !== null" lines="none" [ngStyle]="{'max-height: 2.65rem': siguiente}">
+
+	<ion-grid [ngClass]="{'poco-padding': siguiente, 'mas-padding': !siguiente}">
+		<ion-row class="ion-align-items-center" [ngClass]="{'ion-justify-content-end': propio}">
+			<ion-col size="auto" *ngIf="!propio" class="ion-align-self-start">
+				<ion-avatar class="mensaje-avatar" [ngClass]="{'transparente': anterior}">
+					<img [src]="mensaje.img">
+				</ion-avatar>
+			</ion-col>
+			<ion-col style="max-width: 70%;" class="ion-no-padding">
+				<div class="ion-wrap mensaje" [ngClass]="{'ion-float-right': propio, 'propio': propio, 'amigo': !propio}">
+					<ion-text> {{ mensaje.mensaje }} </ion-text>
+					<ion-text class="hora" [color]="propio ? 'secondary' : 'medium'"> {{ mensaje.timestamp | date:'shortTime' }} </ion-text>
+				</div>
+							
+			</ion-col>
+			<ion-col size="auto" *ngIf="propio" class="ion-align-self-start">
+				<ion-avatar class="mensaje-avatar" [ngClass]="{'transparente': anterior}">
+					<img [src]="mensaje.img">
+				</ion-avatar>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<!-- <ion-chip class="ion-margin-start" *ngIf="mensaje.mensaje !== null">
+		<ion-avatar>
+			<img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+		</ion-avatar>
+		<ion-label> {{ mensaje.mensaje }} </ion-label>
+	</ion-chip> -->
+
+
+	<!-- <ion-label> {{ mensaje.mensaje }} </ion-label> -->
+	
+	<!-- <div [ngClass]="{'visita': visita, 'usuario': !visita}" *ngIf="matricula === mensaje.matricula">
+		<div class="messageContent">
+			{{ mensaje.mensaje }}
+		</div>
+		<div class="messageData">
+			<span class="sender">
+				{{ mensaje.nombre.split(' ')[0] }}
+			</span>
+			<span class="timestamp1">
+				{{ mensaje.timestamp | date:'medium' }}
+			</span>
+		</div>
+	</div> -->
+	
+</ion-item>

@@ -1,0 +1,49 @@
+
+<!-- <app-header titulo="Chat" [buttonType]="2" url="/alumno/tickets"></app-header> -->
+
+<ion-header>
+	<ion-toolbar class="toolbar-rojo">
+		
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref="/tickets"></ion-back-button>
+		</ion-buttons>
+		
+		<ion-title>Chat</ion-title>
+		
+		<ion-menu-toggle menu="second" slot="end">
+			<ion-title>Detalles</ion-title>
+		</ion-menu-toggle>
+
+	</ion-toolbar>
+</ion-header>	
+
+<ion-content #content>
+	
+	<app-chat [ticketSeleccionado]="ticketSeleccionado" [matricula]="matricula"></app-chat>
+	
+</ion-content>
+
+
+<!-- Texto para enviar -->
+<ion-footer no-border>
+
+	<ion-toolbar color="danger">
+		<ion-grid class="ion-no-padding">
+			<ion-row class="ion-justify-content-center ion-align-items-center">
+				<ion-col>
+
+					<ion-input [(ngModel)]="mensaje" placeholder="Escribe tu mensaje aquí" (keyup.enter)="enviarMensaje()"></ion-input>
+
+				</ion-col>
+				<ion-col size="auto">
+					
+					<ion-button type="submit" fill="clear" (click)="enviarMensaje()">
+						<ion-icon name="send" color="light"></ion-icon>
+					</ion-button>
+					
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+			
+	</ion-toolbar>
+</ion-footer>

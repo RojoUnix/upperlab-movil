@@ -1,0 +1,38 @@
+<ion-menu side="end" menuId="second" contentId="principal">
+	
+	<ion-header>
+		<ion-toolbar color="amarillo">
+			<ion-title color="light">Detalles del Ticket</ion-title>
+		</ion-toolbar>
+	</ion-header>
+	
+	<ion-content class="ion-padding">
+<!-- 
+		<ion-text><h5>No tiene conexión a Internet</h5></ion-text>
+		<ion-text><i>«Desde que prendí mi computadora, no tiene conexión a Internet. Ya chequé los cables y parece ser que no es el problema, pero no estoy seguro.»</i></ion-text>
+		<br><br>
+		<ion-text><b>Tipo de Incidencia:</b><br>Cable Ethernet</ion-text>
+		<br><br>
+		<ion-text><b>Laboratorio y equipo:</b><br>LC - PC-20</ion-text>
+		<br><br>
+		<ion-text><b>Urgencia:</b><br>Media</ion-text>
+		<br><br>
+		<ion-text><b>Alumno:</b><br>Luis Fernando Gerónimo Carranza</ion-text>
+		<br><br>
+		<ion-text><b>Grupo:</b><br>IIF - 9B</ion-text> -->
+
+		<ion-text><h5>{{ ticket?.titulo }}</h5></ion-text>
+		<ion-text><i>«{{ ticket?.descripcion }}»</i></ion-text>
+		<br><br>
+		<ion-text><b>Tipo de Incidencia:</b><br>{{ ticket?.tipo.titulo }}</ion-text>
+		<br><br>
+		<ion-text><b>Laboratorio y equipo:</b><br>{{ ticket?.laboratorio }} - {{ ticket?.equipo.nombre }}</ion-text>
+		<br><br>
+		<ion-text><b>Urgencia:</b><br>{{ ticket?.urgencia.titulo }}</ion-text>
+		<br><br>
+		<ion-text><b>Alumno:</b><br>{{ ticket?.usuario.nombre }} {{ ticket?.usuario.apellidoP }} {{ ticket?.usuario.apellidoM }}</ion-text>
+		<br><br>
+		<ion-text><b>Grupo:</b><br>{{ ticket?.usuario.grupo }}</ion-text>
+
+	</ion-content>
+</ion-menu> 

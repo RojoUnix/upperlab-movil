@@ -1,24 +1,49 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-title>UpperLab</ion-title>
-	</ion-toolbar>
-</ion-header>
 
-<ion-content padding>
+<ion-content fullscreen>
 	
+	<div id="header" color="amarillo"></div>
 	
-	<div class="container" id="login">
-		<ion-img src="./../../../../assets/upperlab-logo.png" padding></ion-img>
-		
-		<ion-input name="correo" id="email" placeholder="Correo" type="email" requiered> Correo </ion-input>
-		<ion-input name="password" id="password" placeholder="Password" type="password"> Contraseña </ion-input>
-		
-		<ion-button class="btn btn-primary button-full" (click)="iniciar()"> Ingresar </ion-button>
-		
+	<div id="logo">
+		<ion-img src="./../../../../assets/upperlab-logo.png"></ion-img>
+		<h1 class="text-primary">
+			<span  class="text-amarillo-upemor">Upper</span>
+			<span class="text-rojo-upemor"><strong>Lab</strong></span>
+		</h1>
 	</div>
 	
+	<div id="inputs-container" class="ion-padding ion-margin-bottom">
+		<form #f="ngForm" (ngSubmit)="f.form.valid && enviarFormulario()" novalidate>
+			<ion-list>
+				<ion-item>
+					<ion-label position="floating">Correo</ion-label>
+					<ion-input type="email"
+								class="form-control"
+								name="correo"
+								[(ngModel)]="correo"
+								pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+								(keyup.enter)="f.form.valid && enviarFormulario()"
+								required> 
+					</ion-input>
+				</ion-item>
+				
+				<ion-item class="ion-margin-bottom">
+					<ion-label position="floating">Contraseña</ion-label>
+					<ion-input type="password" 
+								class="form-control"
+								name="contrasena"
+								[(ngModel)]="contrasena"
+								(keyup.enter)="f.form.valid && enviarFormulario()"
+								required>
+					</ion-input>
+				</ion-item>
+			</ion-list>
+			
+			<div>
+				<ion-button expand="block" type="submit">Ingresar</ion-button>
+			</div>
+		</form>
+
+	</div>
+
 </ion-content>
 
-<ion-footer>
-	<h6>UPEMOR 2019</h6>
-</ion-footer>
